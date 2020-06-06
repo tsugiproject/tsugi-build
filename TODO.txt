@@ -2,3 +2,7 @@
 
 Bring the cron stuff in from ami-sql
 
+Take some of the stuff from base and pull it in via
+git so it can be updated
+
+
