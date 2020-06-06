@@ -20,12 +20,27 @@ group.  This produced an AMI that can be shared publically.
 
 You have to decide what kind of instance you want:
 
-* A demo / developer instance installs MySQL locally in the instance.  This
-shoul dnot be used for production - but it can be used for simple demo servers
-where backup and the ability to scale is not critical.
-
 * A production instance expects to have externally provided SQL server,
-Memcache, EFS, etc.
+Memcache server, NFS, etc.  For Amazon these are typically Aurora Serverless,
+Elasticache, and EFS.   For Docker they need to be separately built containers
+(i.e. this process does not build a swarm - just one of several images that
+make up a swarm)
+
+* A demo / developer instance installs MySQL and phpMyAdmin, locally 
+in the instance.  This should not be used for production - but it
+can be used for simple demo servers where backup and the ability to
+scale is not critical.
+
+At this point I don't run *any* production on docker - I just use Amazon.
+Not because of Tsugi - that is easy - the hard part is all of the external
+scalable resources Tsugi needs.
+
+If someone with expertise knew how to set up a production grade swarm
+with backup and autoscaling - and that worked in on locally owned hardware,
+Google Cloud or Azure I would be happy to entertain adding support for that.
+
+Internal Structure
+------------------
 
 In general there are two phases of this process.  
 
@@ -34,9 +49,6 @@ include 'prepare')
 
 * Startup / Configuration - Customize the instance to be yours - which database
 to use, etc. (script names include 'startup')
-
-Internal Structure
-------------------
 
 Most of the scripts that do the heavy lifting are in the `docker` folder.
 We have simple Dockerfile descriptions of how to prepare and start Tsugi
