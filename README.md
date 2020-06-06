@@ -35,16 +35,43 @@ include 'prepare')
 * Startup / Configuration - Customize the instance to be yours - which database
 to use, etc. (script names include 'startup')
 
-Most of the scripts are in the `docker` folder.  We have simple Dockerfile
-descriptions of how to prepare and start Tsugi servers that lean heavily
-on the `prepare` and `startup` scripts.
+Internal Structure
+------------------
+
+Most of the scripts that do the heavy lifting are in the `docker` folder.
+We have simple Dockerfile descriptions of how to prepare and start Tsugi
+servers that lean heavily on the `prepare` and `startup` scripts.
 
 The `ubuntu` and `ami` processes actually read the Dockerfile instructions
-and run the steps that Docker would run but outside of docker.
+and extract the steps and data items that Docker would run but
+outside of docker.
 
 This might seem a bit obtuse but the goal was not to have more than one
 copy of any of the instructions to make sure that no matter how we built
 an instance it could be configured and function correctly.
+
+Because of how Docker COPY commands in Dockerfiles copy from the local
+drive *into* the docker container, it was easier to make Dockerfiles
+that work and then pull out the instructions and do them without 
+`docker` in the `ubuntu` and `ami` processes using the "crude-but-effective"
+`ubuntu\fake-docker.sh` script.
+
+I would guess some fancy product or service could do this as well - but
+the approach I have taken is just to depend on ubuntu and shell scripts.
+
+Updating this Code
+------------------
+
+The result of all this is that if you want to make a major change (like 
+a new version of PHP).  Get it working and tested in the `docker` folder
+and then test the ubuntu version and then the ami version.
+
+Do *not* get too tricky in the Dockerfiles - or you  wll break the 
+"highly simplified" way that `fake-docker.sh` extracts information
+from the Dockerfile.  In particular `fake-docker.sh` will not handle
+multi-line docker commands *at all*.
+
+
 
 
 
