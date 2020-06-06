@@ -1,8 +1,9 @@
 
 # Run this from the top level directory
 
-# bash ami/build-dev.sh
+# bash ubuntu/build-dev.sh
 
-bash ami/fake-docker.sh docker/base
-bash ami/fake-docker.sh docker/mysql
-bash ami/fake-docker.sh docker/dev
+bash ubuntu/fake-docker.sh docker/base
+bash ubuntu/fake-docker.sh docker/mysql
+bash ubuntu/fake-docker.sh docker/dev
+

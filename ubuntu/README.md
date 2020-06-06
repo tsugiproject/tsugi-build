@@ -1,33 +1,57 @@
 Bringing Tsugi Up on Ubuntu
 ===========================
 
-This documents how to build a Tsugi developer or production instance
-on an ubuntu 18.04 instance.
+This documents how to manually build a Tsugi developer or production server
+on an ubuntu 18.04 instance.  You have to decide what kind of instance you
+want:
 
-Doing this Using a
-----------------
+* A demo / developer instance installs MySQL locally in the instance.  This
+shoul dnot be used for production - but it can be used for simple demo servers
+where backup and the ability to scale is not critical.
 
-To test the non-docker scripts in a docker container so you can start over:
+* A production instance expects to have externally provided SQL server,
+Memcache, EFS, etc.
+
+Doing this on an EC2
+--------------------
+
+Create your instance from an Ubuntu `18_04` or later AMI and log in to your instance.
+
+Testing this using a Docker container
+-------------------------------------
+
+If you don't want to make an EC2 instance - you can install docker and do all this
+locally.  To be clear we are not *making* docker images in this process - instead we
+are *using* docker to give us a fresh ubuntu install.
 
     docker run -p 8080:80 -p 5000:5432 -p 8001:8001 --name ubuntu -dit ubuntu:18.04
+
+The log in to your instance:
+
     docker exec -it ubuntu bash
 
 Ubuntu Setup
 ------------
 
-Common commands for EC2 or docker once in as `root`:
+Common commands after you are logged in as root:
 
     apt-get update
     apt-get install -y git vim
 
-Check out this repository and Tsugi's php-docker:
+Check out this repository:
 
     cd /root
-    git clone https://github.com/tsugiproject/docker-php.git
-    git clone https://github.com/csev/pg4e-docker.git
+    git clone https://github.com/tsugiproject/tsugi-build.git
 
-    cd /root/pg4e-docker
-    bash ami/build.sh
+If you want a developer/demo instance (fully self-contained):
+
+    cd /root/tsugi-build
+    bash ubuntu/build-dev.sh
+
+If you want a production instance dependent on outside resources:
+
+    cd /root/tsugi-build
+    bash ubuntu/build-prod.sh
 
 At this point if you are in an ECS and want to snapshot an AMI for an autoscaling group
 or something - do it now.  Or perhaps take a docker snapshot to come back to this point:
@@ -39,51 +63,36 @@ Configuration and Startup
 
 The rest is configuration and startup:
 
-    cd /root/pg4e-docker
+    cd /root/tsugi-build
     cp ami-env-dist.sh  ami-env.sh
 
 Edit the config if you are building a production box:
 
-    export APACHE_SERVER_NAME=www.pg4e.com
-    export TSUGI_APPHOME=https://www.pg4e.com
+    export APACHE_SERVER_NAME=www.dj4e.com
+    export TSUGI_APPHOME=https://www.dj4e.com
 
 Then complete install and configure:
 
     source ami-env.sh
     bash /usr/local/bin/tsugi-pg4e-startup.sh return
 
+
+LDSLHJLKJSDLKJSDLKJSDKLJDSLKJSDLKJDSLKJDSLKJDSLJDSLJ FIX THIS
+
 The `pg4e-startup` script will run all the Tsugi scripts in the right order.
 
-Testing
--------
-
-The navigate to http://localhost:8080/ or http://12.34.56.78/ depending on your server.
-
-Also assuming `CHARLES_AUTH_SECRET=secret` :
-
-    curl --user administrator:2007_d223496d localhost:8001/v1/basicauth/elasticsearch
-    curl --user administrator:2007_d223496d localhost:8001/v1/basicauth/elasticsearch/test
-
-Also:
-
-    psql -h 127.0.0.1 -p 5432 -U charles -W charles
-    zippy
-
-Es configuration:
-
-    es_host:  127.0.0.1  or test.pg4e.com
-    es_port:  8001
-    es_prefix: v1/basicauth/elasticsearch
-
-If you are goging to code - here is the git config:
+If you are going to code  and make commits on this instance you might want
+to configure git.
 
     git config user.name "Charles R. Severance"
     git config user.email "csev@umich.edu"
 
-Getting a Certificate
----------------------
+Getting a LetsEncrypt Certificate
+----------------------------------
 
-    root@ip-172-31-2-126:/root/pg4e-docker# certbot --apache
+If you are running a real server, you will want a SSL certificate.
+
+    root@ip-172-31-2-126:/root/tsugi-build# certbot --apache
     Saving debug log to /var/log/letsencrypt/letsencrypt.log
     Plugins selected: Authenticator apache, Installer apache
     Enter email address (used for urgent renewal and security notices) (Enter 'c' to

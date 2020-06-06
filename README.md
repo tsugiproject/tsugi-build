@@ -3,39 +3,38 @@ Build Scripts for Tsugi
 -----------------------
 
 This is a series of build scripts that allow you to build various
-versions of Tsugi servers.  You can build any of the following:
+versions of Tsugi servers on ubuntu instances.
 
-* Produce docker images that can be used for development,
-docker swarm, or Kubernetes
+You can build any of the following:
 
 * Scripts that can be run inside of a bare ubuntu distribution
-to prepare the instance to run Tsugi.
+to prepare the instance to run Tsugi (ubuntu/README.md)
+
+* Produce docker images that can be used for development,
+docker swarm, or Kubernetes (docker/README.md)
 
 * Scripts that prepare an AMI image for development and production
 that can be uses to mint EC2 nodes and/or an Amazon autoscaling
 group.  This produced an AMI that can be shared publically.
+(ami/README.md)
 
-It is a bit of a rats nest how these work.  The real code is
-in the docker folders in the `tsugi-prepare` and `tsugi-startup`
-scripts and some highly stylized Dockerfiles.  The ubuntu and 
-ami setups pull things out of the docker files and run the scripts
-outside of the Docker process.
+You have to decide what kind of instance you want:
 
-Even thought the ami and ubuntu processes use the scripts and 
-Docker files - docker is not used at all in these environments
-and you do not have to build the docker images first or at all
-when working in ubuntu or ami.
+* A demo / developer instance installs MySQL locally in the instance.  This
+shoul dnot be used for production - but it can be used for simple demo servers
+where backup and the ability to scale is not critical.
 
-Building Docker Images
-----------------------
+* A production instance expects to have externally provided SQL server,
+Memcache, EFS, etc.
 
-It is pretty simple to build the docker images:
+In general there are two phases of this process.  
 
-    cd docker
-    bash build.sh
+* Prepartion - Install all the software and pre-requisites (scripts names
+include 'prepare')
 
-See `docker/README.md` for details on how to run and work with
-the docker images.
+* Startup / Configuration - Customize the instance to be yours - which database
+to use, etc. (script names include 'startup')
+
 
 
 
