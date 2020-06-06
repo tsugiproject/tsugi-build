@@ -64,7 +64,7 @@ Configuration and Startup
 The rest is configuration and startup:
 
     cd /root/tsugi-build
-    cp ami-env-dist.sh  ami-env.sh
+    cp ubuntu-env-dist.sh  ubuntu-env.sh
 
 Edit the config if you are building a production box:
 
@@ -73,7 +73,7 @@ Edit the config if you are building a production box:
 
 Then complete install and configure:
 
-    source ami-env.sh
+    source ubuntu-env.sh
     bash /usr/local/bin/tsugi-pg4e-startup.sh return
 
 

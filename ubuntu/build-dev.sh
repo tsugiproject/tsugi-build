@@ -3,7 +3,7 @@
 
 # bash ubuntu/build-dev.sh
 
-bash ubuntu/fake-docker.sh docker/base
-bash ubuntu/fake-docker.sh docker/mysql
-bash ubuntu/fake-docker.sh docker/dev
+bash docker/fake-docker.sh docker/base
+bash docker/fake-docker.sh docker/mysql
+bash docker/fake-docker.sh docker/dev
 
