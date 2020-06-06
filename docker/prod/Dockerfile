@@ -14,7 +14,7 @@
 
 FROM tsugi_base:latest
 
-COPY tsugi-prod-startup.sh /usr/local/bin
+COPY tsugi-prod-configure.sh /usr/local/bin
 
 COPY ./www ./www
 
@@ -25,7 +25,7 @@ ENV HOME /root
 WORKDIR /root
 
 EXPOSE 80 443 3306
-ENTRYPOINT ["bash", "/usr/local/bin/tsugi-prod-startup.sh"]
+ENTRYPOINT ["bash", "/usr/local/bin/tsugi-prod-configure.sh"]
 
 # Define default command.
 CMD ["bash"]

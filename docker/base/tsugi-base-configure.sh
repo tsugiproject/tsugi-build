@@ -1,8 +1,8 @@
-echo "Running Base Startup"
+echo "Running Base Configure"
 
 COMPLETE=/usr/local/bin/tsugi-base-complete
 if [ -f "$COMPLETE" ]; then
-    echo "Base startup already has run"
+    echo "Base configure already has run"
 else
 
 # sanity check in case Docker went wrong with freshly mounted html folder

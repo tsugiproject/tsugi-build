@@ -11,7 +11,7 @@
 # Pull base image.
 FROM ubuntu:18.04
 
-COPY tsugi-base-startup.sh /usr/local/bin/
+COPY tsugi-base-configure.sh /usr/local/bin/
 COPY tsugi-base-prepare.sh /usr/local/bin/
 
 # Install.
@@ -31,7 +31,7 @@ WORKDIR /root
 
 
 EXPOSE 80 443
-ENTRYPOINT ["bash", "/usr/local/bin/tsugi-base-startup.sh"]
+ENTRYPOINT ["bash", "/usr/local/bin/tsugi-base-configure.sh"]
 
 # Define default command.  (Should never get here)
 CMD ["bash"]

@@ -14,7 +14,7 @@
 
 FROM tsugi_mysql:latest
 
-COPY tsugi-dev-startup.sh /usr/local/bin
+COPY tsugi-dev-configure.sh /usr/local/bin
 
 COPY ./www /root/www
 COPY ./phpMyAdmin-4.7.9-all-languages.zip /root/phpMyAdmin-4.7.9-all-languages.zip
@@ -26,7 +26,7 @@ ENV HOME /root
 WORKDIR /root
 
 EXPOSE 80 443 3306
-ENTRYPOINT ["bash", "/usr/local/bin/tsugi-dev-startup.sh"]
+ENTRYPOINT ["bash", "/usr/local/bin/tsugi-dev-configure.sh"]
 
 # Define default command.
 CMD ["bash"]

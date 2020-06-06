@@ -3,9 +3,18 @@
 
 # This controls how Tsugi is set up on this server.
 
-export APACHE_SERVER_NAME=localhost
+export TSUGI_SERVICENAME=MyStore
+
+# The URL that the outside world will use to access this server
 export TSUGI_APPHOME=http://localhost:8080 
-export TSUGI_SERVICENAME=Awesome 
-export MYSQL_ROOT_PASSWORD=secret 
+
+# A github repository for the "outer" web site 
+# If omitted a single html page will be put in as a placeholder.
 export MAIN_REPO=https://github.com/tsugiproject/tsugi-parent
 
+# Dev / demo instances have a built-in MySQL server installed and configured
+export MYSQL_ROOT_PASSWORD=secret 
+
+# Controls the host name that Apache reports - /etc/apache2/sites-available/000-default.conf
+# Important when getting a LetsEncrypt certificate
+export APACHE_SERVER_NAME=localhost

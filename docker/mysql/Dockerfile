@@ -10,7 +10,7 @@
 FROM tsugi_base:latest
 
 COPY tsugi-mysql-prepare.sh /usr/local/bin
-COPY tsugi-mysql-startup.sh /usr/local/bin
+COPY tsugi-mysql-configure.sh /usr/local/bin
 
 # Install.
 RUN bash /usr/local/bin/tsugi-mysql-prepare.sh
@@ -22,7 +22,7 @@ ENV HOME /root
 WORKDIR /root
 
 EXPOSE 80 443 3306
-ENTRYPOINT ["bash", "/usr/local/bin/tsugi-mysql-startup.sh"]
+ENTRYPOINT ["bash", "/usr/local/bin/tsugi-mysql-configure.sh"]
 
 # Define default command.
 CMD ["bash"]

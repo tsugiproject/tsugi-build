@@ -1,10 +1,10 @@
-echo "Running dev Startup"
+echo "Running dev Configure"
 
-bash /usr/local/bin/tsugi-mysql-startup.sh return
+bash /usr/local/bin/tsugi-mysql-configure.sh return
 
 COMPLETE=/usr/local/bin/tsugi-dev-complete
 if [ -f "$COMPLETE" ]; then
-    echo "Dev startup already has run"
+    echo "Dev configure already has run"
 else
 
 # sanity check in case Docker went wrong with freshly mounted html folder

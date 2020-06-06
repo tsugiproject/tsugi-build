@@ -1,10 +1,10 @@
-echo "Running MySQL Startup"
+echo "Running MySQL Configure"
 
-bash /usr/local/bin/tsugi-base-startup.sh return
+bash /usr/local/bin/tsugi-base-configure.sh return
 
 COMPLETE=/usr/local/bin/tsugi-mysql-complete
 if [ -f "$COMPLETE" ]; then
-    echo "MySQL startup already has run"
+    echo "MySQL configure already has run"
 else
 
 # Mysql
@@ -42,7 +42,7 @@ service mysql start
 
 echo ""
 if [ "$@" == "return" ] ; then
-  echo "Tsugi MySQL Startup Returning..."
+  echo "Tsugi MySQL Configure Returning..."
   exit
 fi
 

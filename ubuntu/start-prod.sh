@@ -8,4 +8,4 @@ fi
 
 source ubuntu-env.sh
 
-bash /usr/local/bin/tsugi-prod-startup.sh return
+bash /usr/local/bin/tsugi-prod-configure.sh return
