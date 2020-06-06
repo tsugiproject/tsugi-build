@@ -34,6 +34,16 @@ EOF
 
 fi
 
+cp /usr/bin/git /usr/local/bin/gitx
+chown www-data:www-data /usr/local/bin/gitx
+
+# Make git work from the browser
+if [ -n "$SETUP_GIT" ] ; then
+  echo "Enabling git from the browser"
+  chmod a+s /usr/local/bin/gitx
+fi
+
+
 if [ ! -z "$AUTO_UPDATE_ENABLE" ]; then
     echo "Setting up automatic update"
 
