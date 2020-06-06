@@ -1,6 +1,6 @@
 # !/bin/sh
 
-source /home/ubuntu/tsugi_env.sh
+source /root/ubuntu-env.sh
 
 NOW=`date +%Y%m%d`
 YEST=`expr $NOW - 1`

@@ -20,6 +20,11 @@ export TSUGI_APPHOME=https://moodle.tsugicloud.org
 # Dev / demo instances have a built-in MySQL server installed and configured
 export MYSQL_ROOT_PASSWORD=hello_martin_123 
 
+# Automatically update software - cloud style
+# This must be enabled for auto-scaling scenarios to keep cluster in sync
+# Single servers can leave this *unset* if they want manual updating
+export AUTO_UPDATE_ENABLE=true
+
 # Controls the host name that Apache reports - /etc/apache2/sites-available/000-default.conf
 # Important when getting a LetsEncrypt certificate
 export APACHE_SERVER_NAME=moodle.tsugicloud.org

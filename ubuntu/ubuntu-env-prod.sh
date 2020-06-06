@@ -13,6 +13,15 @@ export MAIN_REPO=https://github.com/csev-es/py4e.git
 
 export TSUGI_SERVICENAME=PY4E-ES
 
+# Controls the host name that Apache reports - /etc/apache2/sites-available/000-default.conf
+# Important when getting a LetsEncrypt certificate
+export APACHE_SERVER_NAME=es.py4e.com
+
+# Automatically update software - cloud style
+# This must be enabled for auto-scaling scenarios to keep cluster in sync
+# Single servers can leave this *unset* if they want manual updating
+export AUTO_UPDATE_ENABLE=true
+
 # The URL that the outside world will use to access this server
 export TSUGI_APPHOME=https://es.py4e.com
 export TSUGI_WWWROOT=https://es.py4e.com/tsugi
@@ -47,8 +56,4 @@ export TSUGI_CONTEXT_TITLE='Python para todos'
 # export POSTFIX_ORIGIN_DOMAIN=learnxp.com
 # export POSTFIX_RELAYHOST=...
 # export POSTFIX_SASL_PASSWORD=...
-
-# Controls the host name that Apache reports - /etc/apache2/sites-available/000-default.conf
-# Important when getting a LetsEncrypt certificate
-export APACHE_SERVER_NAME=es.py4e.com
 

@@ -34,6 +34,16 @@ EOF
 
 fi
 
+if [ ! -z "$AUTO_UPDATE_ENABLE" ]; then
+    echo "Setting up automatic update"
+
+    echo ====== Setting up cron jobs
+    chmod 664 /root/cron*.sh
+
+    cp /root/crontab.txt /var/spool/cron/crontabs/root
+    chmod 600 /var/spool/cron/crontabs/root
+fi
+
 touch $COMPLETE
 
 /usr/sbin/apachectl start
