@@ -39,6 +39,43 @@ If someone with expertise knew how to set up a production grade swarm
 with backup and autoscaling - and that worked in on locally owned hardware,
 Google Cloud or Azure I would be happy to entertain adding support for that.
 
+The "Outer Site"
+----------------
+
+Tsugi is just a collection of tools that you need to organize how to 
+expose to your users.   Tsugi will be installed at the "/tsugi" path
+in the web hierarchy at:
+
+    /var/www/html/tsugi
+
+You will need to add some documentation that explains what this server is, 
+who can use it - why it is here, etc.  It is the web site that wraps Tsugi
+and allows you to contextualize Tsugi for your purposes.  This outer site will
+be at the "/" path in the browser and reside at:
+
+    /var/www/html
+
+In your server.
+
+Here are some "outer site" samples ranging from the simple to the complex:
+
+* A empty static HMTL shell + documentation - https://github.com/tsugiproject/tsugi-parent
+
+* A Jekyll based site for https://dev1.tsugicloud.org/ - https://github.com/tsugicloud/dev-jekyll
+
+* A Grav based site for https://www.tsugicloud.org/ - https://github.com/tsugicloud/website
+
+* A Koseu-based course for https://www.py4e.com/ - https://github.com/csev/py4e
+
+There is even more flexibility as to where you "embed" Tsugi.
+
+The "outer site" for https://www.learnxp.com is actually a Shopify site that then jumps into
+https://apps.learnxp.com in order to do its Tsugi functions.  For https://openochem.org/ooc/ 
+the "outer site" is actually WordPress.
+
+If you are just getting started, just use the tsugi-parent site and then once things are working
+you can evolve your outer site to make your Ysugi look exactly the way you like it.
+
 Internal Structure
 ------------------
 
@@ -71,8 +108,8 @@ that work and then pull out the instructions and do them without
 I would guess some fancy product or service could do this as well - but
 the approach I have taken is just to depend on ubuntu and shell scripts.
 
-Updating this Code
-------------------
+Notes on Updating this Code
+---------------------------
 
 The result of all this is that if you want to make a major change (like 
 a new version of PHP).  Get it working and tested in the `docker` folder
@@ -82,13 +119,4 @@ Do *not* get too tricky in the Dockerfiles - or you  wll break the
 "highly simplified" way that `fake-docker.sh` extracts information
 from the Dockerfile.  In particular `fake-docker.sh` will not handle
 multi-line docker commands *at all*.
-
-
-
-
-
-
-
-
-
 
