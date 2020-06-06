@@ -82,8 +82,8 @@ to create a pre-configured AMI.
 
 Of course you can tag it any way you like.
 
-Adding Your Custom Stuff
-------------------------
+Adding Your Custom Software
+---------------------------
 
 Let say you want to make a custom image with software that is beyond a stock
 Tsugi install.  You would be well served to break that setup into two phases:
@@ -108,9 +108,9 @@ process is re-attempted.
 
 If you want to tweak your server configuration after this process runs - just go 
 in and type ubuntu commands to edit your `/etc/apache2` configuration files.  Of course,
-the more you do manually, the harder it is to rebuild an identical server.
+the more you do manually, the harder it is to rebuild an identical server later.
 
-The configure process creates folders, checks out code, sets up databases, 
+The configure process creates folders, checks out code, creates databases, 
 edits Tsugi's `config.php` and a whole host of tasks to make Tsugi ready to
 run.  If you access the server before or during the configuration process it
 will break in subtle ways because it is not set up.  But once the process
@@ -121,43 +121,70 @@ and you create a new server from that backup - you will have to run the configur
 process once on that fresh copy of a "complete but unconfigured" Tsugi server.
 
 This may initially seem counter intutitive - but once you start setting Tsugi up
-with autoscaling - you will greatly appreciate this process of "mint a new server from
-a backup, configure it, and put it into production" process.
+with autoscaling or starting an instance using Docker, you will greatly appreciate
+this process of "mint a new server from a backup, configure it, and put it into
+production".
+
+Configure a Developer Server
+----------------------------
 
 The rest is configuration and startup.  This file only covers the non-AMI setup.
 See the `ami` folder for the more complex AMI setup.
 
-Developer / demo setup is prettty simple because there are no external servers:
+Developer setup is prettty simple because there are no external servers:
 
     cd /root/tsugi-build
-    cp ubuntu-dev-dist.sh  ubuntu-env.sh
-    cp ubuntu-prod-dist.sh  ubuntu-env.sh
+    cp ubuntu-env-dev.sh ubuntu-env.sh
+    source ubuntu-env.sh
+    bash /usr/local/bin/tsugi-dev-configure.sh return
 
-Edit the config if you are building a production box:
+Configure a Demo Server
+------------------------
 
-    export APACHE_SERVER_NAME=www.dj4e.com
-    export TSUGI_APPHOME=https://www.dj4e.com
+Demo setup requires that you edit your configuration but there are no external
+servers needed:
 
-Then complete install and configure:
+    cd /root/tsugi-build
+    cp ubuntu-env-demo.sh ubuntu-env.sh
+
+    # Edit the ubuntu-env.sh and put your values in it
 
     source ubuntu-env.sh
-    bash /usr/local/bin/tsugi-pg4e-startup.sh return
+    bash /usr/local/bin/tsugi-dev-configure.sh return
 
+It is correct that the configure script for both dev and demo is 'dev'.  The only
+difference is the configuration.
 
-LDSLHJLKJSDLKJSDLKJSDKLJDSLKJSDLKJDSLKJDSLKJDSLJDSLJ FIX THIS
+Configure a Hand-crafted Production Server
+------------------------------------------
 
-The `pg4e-startup` script will run all the Tsugi scripts in the right order.
+This is not a complete set of instructions becuase there are so many different setups.
+It depends on external resources.  At minumum you need a MySQL server.  If you are
+autoscaling or using multple App Servers you need a Memcache server to store sessions.
+If your system will use a lot of blobs - they should be on Disk and if you are using
+multiple app servers they need to be on an NFS server.   
 
-If you are going to code  and make commits on this instance you might want
-to configure git.
+So you need to set up all the needed pre-requisites and add them to the configuration.
 
-    git config user.name "Charles R. Severance"
-    git config user.email "csev@umich.edu"
+The general outline is:
+
+    cd /root/tsugi-build
+    cp ubuntu-env-prod.sh ubuntu-env.sh
+
+    # Edit the ubuntu-env.sh and put your values in it
+
+    source ubuntu-env.sh
+    bash /usr/local/bin/tsugi-prod-configure.sh return
+
+This pattern of hand-minting an ubuntu server and hand-minting all of the pre-requisites
+ia __difficult__ - If you are running production and want more of a cookie-cutter approach
+take a look at the instructions under the `ami` folder.  It is far more specific and much easier
+to do.
 
 Getting a LetsEncrypt Certificate
 ----------------------------------
 
-If you are running a real server, you will want a SSL certificate.
+If you are running a demo or production server, you will want a SSL certificate.
 
     root@ip-172-31-2-126:/root/tsugi-build# certbot --apache
     Saving debug log to /var/log/letsencrypt/letsencrypt.log
@@ -219,4 +246,12 @@ If you are running a real server, you will want a SSL certificate.
        version of this certificate in the future, simply run certbot again
        with the "certonly" option. To non-interactively renew *all* of
        your certificates, run "certbot renew"
+
+When Your Server Reboots
+------------------------
+
+After the configuration process is done once, everything you need is sitting on
+the disk of your server in folders like `/etc` and `/var`.  And everything is
+setup to restart on reboot - so if your server goes down or you take it down, 
+just bring it back up and Tsugi should just re-appear and work.
 

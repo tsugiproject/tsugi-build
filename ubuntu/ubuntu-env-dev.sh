@@ -15,6 +15,3 @@ export MAIN_REPO=https://github.com/tsugiproject/tsugi-parent
 # Dev / demo instances have a built-in MySQL server installed and configured
 export MYSQL_ROOT_PASSWORD=secret 
 
-# Controls the host name that Apache reports - /etc/apache2/sites-available/000-default.conf
-# Important when getting a LetsEncrypt certificate
-export APACHE_SERVER_NAME=localhost
