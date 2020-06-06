@@ -61,10 +61,12 @@ or something - do it now.  Or perhaps take a docker snapshot to come back to thi
 Configuration and Startup
 -------------------------
 
-The rest is configuration and startup:
+The rest is configuration and startup.  This file only covers the non-AMI setup.
+See the `ami` folder for the more complex AMI setup.
 
     cd /root/tsugi-build
-    cp ubuntu-env-dist.sh  ubuntu-env.sh
+    cp ubuntu-dev-dist.sh  ubuntu-env.sh
+    cp ubuntu-prod-dist.sh  ubuntu-env.sh
 
 Edit the config if you are building a production box:
 
