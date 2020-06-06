@@ -13,6 +13,7 @@ FROM ubuntu:18.04
 
 COPY tsugi-base-configure.sh /usr/local/bin/
 COPY tsugi-base-prepare.sh /usr/local/bin/
+COPY scripts /root/
 
 # Install.
 RUN bash /usr/local/bin/tsugi-base-prepare.sh

@@ -10,6 +10,10 @@ apt-get -y upgrade
 apt-get install -y build-essential
 apt-get install -y software-properties-common
 apt-get install -y byobu curl git htop man unzip vim wget
+apt-get install -y apt-utils 
+if [ ! -f "/usr/bin/crontab" ]; then
+    apt-get install -y cron 
+fi
 apt-get install -y ca-certificates
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4F4EA0AAE5267A6C
 echo ======= Update 2
@@ -37,7 +41,6 @@ echo "postfix postfix/main_mailer_type string 'Internet Site'" | debconf-set-sel
 apt-get install -y mailutils
 echo ======= Cleanup Start
 df
-apt-get --purge -y remove software-properties-common
 apt-get -y autoclean
 apt-get -y clean
 apt-get -y autoremove
