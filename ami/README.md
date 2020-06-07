@@ -6,8 +6,6 @@ Make the pre-instance to make the ami
 
     EC2 Dashboard
     Ubuntu Server 18.04 LTS (HVM), SSD Volume Type - ami-05c1fa8df71875112 (Since 2019-08-11)
-    Old: Ubuntu Server 16.04 LTS (HVM), SSD Volume Type - ami-0f93b5fd8f220e428 (Since 2019-07-03)
-    Older: ami-916f59f4 - Ubuntu Server 16.04 LTS (HVM), SSD Volume Type ami-916f59f4 (Since 2018-03-06)
     t2.micro
     don't put user data in for the pre-process
 
@@ -15,17 +13,17 @@ Once your EC2 Instance is up and running, log in and run the following sequence:
 
     ssh ubuntu@13.59.45.131
     sudo bash
-    pwd    # /home/ubuntu
-    git clone https://github.com/tsugicloud/ami-sql.git
+    cd /root
+    git clone https://github.com/tsugiproject/tsugi-build.git
     cd ami-sql
-    bash pre-ami.sh
+    bash ubuntu/build-prod.sh
     # Navigate to http://13.59.45.131 make sure you see the empty Apache screen...
     systemctl poweroff
 
 Make an AMI by taking a snapshot of your EC2 instance once it is powered off.
 Name it something like:
 
-    tsugi-ubuntu18.04-php7.3-2019-08-11
+    tsugi-ubuntu18.04-php7.3-2020-06-04
 
 Creating the Necessary Services and Building the User Data
 ==========================================================
@@ -58,7 +56,7 @@ Make a single-node ElasticCache / Memcache server. I use a t2.small and it has p
 and memory since PHP sessions in Tsugi are pretty small.  Tsugi does not yet like a cluster
 of memcache servers - so just make one of the correct size.  Watch things like free memory
 on a Cloudwatch dashboard - you will likely find that it is very relaxed.  Configure in
-your `user-data.sh` as follows:
+your `user_data.sh` as follows:
 
     export TSUGI_MEMCACHED=tsugi-memcache.9f8gf8.cfg.use2.cache.amazonaws.com:11211
 

@@ -2,7 +2,7 @@
 echo Running user-data from `pwd` on `date "+%F-%T"`
 echo `pwd` > /tmp/user-data-`date "+%F-%T"`
 
-cat << EOF > /home/ubuntu/tsugi_env.sh
+cat << EOF > /root/ubuntu-env.sh
 export MAIN_REPO=https://github.com/tsugicloud/website.git
 
 export TSUGI_USER=tsugicloud
@@ -48,10 +48,11 @@ export POSTFIX_SASL_PASSWORD="[email-smtp.us-east-1.amazonaws.com]:587 AKIKJHDSK
 
 EOF
 
-source /home/ubuntu/tsugi_env.sh
+source /root/tsugi_env.sh
 
 # Get the latest
-cd /home/ubuntu/ami-sql
+cd /root/tsugi-build
 git pull
 
-source /home/ubuntu/ami-sql/post-ami.sh
+bash /usr/local/bin/tsugi-prod-configure.sh return
+
