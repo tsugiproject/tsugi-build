@@ -1,30 +1,9 @@
 
-Building the AMI
-================
+Building a Tsugi Instance from an AMI
+=====================================
 
-Make the pre-instance to make the ami
-
-    EC2 Dashboard
-    Ubuntu Server 18.04 LTS (HVM), SSD Volume Type - ami-05c1fa8df71875112 (Since 2019-08-11)
-    t2.micro
-    don't put user data in for the pre-process
-
-Once your EC2 Instance is up and running and you have an IP address, log in and
-run the following sequence:
-
-    ssh ubuntu@13.59.45.131
-    sudo bash
-    cd /root
-    git clone https://github.com/tsugiproject/tsugi-build.git
-    cd ami-sql
-    bash ubuntu/build-prod.sh
-    # Navigate to http://13.59.45.131 make sure you see the empty Apache screen...
-    systemctl poweroff
-
-Make an AMI by taking a snapshot of your EC2 instance once it is powered off.
-Name it something like:
-
-    tsugi-ubuntu18.04-php7.3-2020-06-04
+To run this process, you first need to build an AMI with all the Tsugi software
+installed or select a Tsugi Public AMI (once I get that working).
 
 When you build a server based on an AMI, the `configure` scripts 
 check out the latest version of Tsugi so you can keep using the same AMI
@@ -133,15 +112,40 @@ Making an EC2 Instance Using the AMI
 To build your EC2 Instance, make a new instance and start with the AMI you created above.  Or start with
 one of the official AMIs (if we make them available).
 
-Put in the user data under Advanced - copy everything from the "#! /bin/bash" to the end of the file.
+At "Step 2: Choose an Instance Type" - I use a t2.micro if this will be a medium to low server
+or if I am going to use an Auto Scaling Group.  If I thing this might get a bit more traffic,
+but I don't want to use an ASG, use t2.small or t2.medium.  The nice thing is that it is easy to
+change the instance type in a pinch - but if you want to keep costs low and handle a wide range
+of load - using t2.micros and an ASG is the best way to go. 
+
+At "Step 3: Configure Instance Details" ask for an auto-assigned Public IP.  These are free as 
+long as they are connected to an instance.  And it is useful if later you want to make a new
+instance and move that IP to the new instance.  Then scroll down to "Advanced Details" and "User Data".
+Paste in the entire contents of your `user_data.sh` configuration. 
+Copy everything from the "#! /bin/bash" to the end of the file.
 When the EC2 provisioning process sees the hashbang, it runs the user data as a shell script.
 
-To debug the install process, you might find it useful to look at:
+At "Step 4: Add Storage" - Keep the default 8GB - every bit of data that grows except logs is stored
+outside the server.
 
-After it comes up - you can see the post-ami process output in:
+At "Step 5: Add Tags" - Make sure to add a name tag
+
+At "Step 6: Configure Security Group" - make sure to "Select an existing security group" and pick
+the right security group.  For example if you are only accepting connections from CloudFlare
+then pick your `cloudflare-80` security group or whatever you named it.
+
+After the provisioning is complete, the tusig-build configure processes will run.  If you want to see
+them in action while provisioning is running, login and watch the log file.
 
     ssh ubuntu@3.15.21.67
     tail -f /var/log/cloud-init-output.log
+
+Once the server is all the way up, you can check to see if it is working.  Remember if you used the
+CloudFlare only security group, you can't just go to the IP address in the browser:
+
+http://3.15.21.67/
+
+See the `cloudflare` instructions on how to temporarily sneak by the security group for initial testing.
 
 Making an Autoscaling Group Using the AMI
 -----------------------------------------
