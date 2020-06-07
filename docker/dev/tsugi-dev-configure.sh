@@ -7,23 +7,6 @@ if [ -f "$COMPLETE" ]; then
     echo "Dev configure already has run"
 else
 
-# sanity check in case Docker went wrong with freshly mounted html folder
-if [ -d "/var/www/html" ] ; then
-    echo "Normal case: /var/www/html is a directory";
-else
-    if [ -f "/var/www/html" ]; then
-        echo "OOPS /var/www/html is a file";
-        rm -f /var/www/html
-        mkdir /var/www/html
-        echo "<h1>Test Page</h1>" > /var/www/html/index.html
-    else
-        echo "OOPS /var/www/html is not there";
-        rm -f /var/www/html
-        mkdir /var/www/html
-        echo "<h1>Test Dev Page</h1>" > /var/www/html/index.html
-    fi
-fi
-
 if [ -z "$MYSQL_ROOT_PASSWORD" ]; then
 ROOT_PASS=root
 else
