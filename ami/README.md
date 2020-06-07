@@ -63,15 +63,24 @@ sample `user_data.sh` file in this folder - it has commands like:
     export TSUGI_PASSWORD=APPS_PW_8973498
     export TSUGI_PDO="mysql:host=tsugi-serverless.cluster-ce43983889mk.us-east-2.rds.amazonaws.com;dbname=apps_db"
 
-Make an EFS volume and put its connection information into:
+Since you do not want store database blobs in the database and you do not want to run your
+EC2 instances out of disk and because you might make an autoscaling groups right away or later,
+make an EFS volume that can be mounted on your EC2 instance:
+
+    AWS-> EFS -> File Systems
+    Create New File System
+    Make sure to add cloudflare-80 as the security group if you use it for your EC2s
+    Check Enable Lifecycle Management (research this)
+
+Put the hostname of your newly minted EFS volume in your `user_data.sh` as follows:
 
     export TSUGI_NFS_VOLUME=fs-439fd792.efs.us-east-2.amazonaws.com
 
 Make a single-node ElasticCache / Memcache server. I use a t2.small and it has plenty of power
-and memory since PHP sessions in Tsugi are pretty small.  Tsugi does not yet like a cluster
+and memory since PHP sessions in Tsugi are pretty small.  Tsugi does not yet understand a cluster
 of memcache servers - so just make one of the correct size.  Watch things like free memory
-on a Cloudwatch dashboard - you will likely find that it is very relaxed.  Configure in
-your `user_data.sh` as follows:
+on a Cloudwatch dashboard - you will likely find that it is very relaxed and nowhere 
+near running out of memory.  Configure in your `user_data.sh` as follows:
 
     export TSUGI_MEMCACHED=tsugi-memcache.9f8gf8.cfg.use2.cache.amazonaws.com:11211
 

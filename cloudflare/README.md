@@ -1,4 +1,54 @@
 
+Making a CloudFlare Security Group in Amazon
+--------------------------------------------
+
+If you want to have solid DDOS protection, it is nice to block all direct
+traffic except SSH to the public IP addresses of youer EC2 instances.  CloudFlare
+gives you a list of the IP ranges at these URLs:
+
+  https://www.cloudflare.com/ips-v4
+  https://www.cloudflare.com/ips-v6
+
+These change very slowly.  From August 2018 (when I started using this technique)
+to June 2020 (when I am writing this documentation) there were *no* changes to 
+the CloudFlare IP ranges.  I include commands below to check if they have changed
+any time you like.  If you notice that they have changed - make sure to let
+the Tsugi devloper's list know because a lot of Tsugi servers might be partially
+off the air.
+
+To make use of this feature you make an AWS security group (I call my security 
+group `cloudflare-80`) that allows incoming HTTP
+from all these ranges and SSH from any address range and nothing else. Here are some
+sample AWS console images:
+
+* <a href="images/security-group-01.png" target="_blank">Page 1</a>
+* <a href="images/security-group-02.png" target="_blank">Page 2</a>
+
+If you want to turn this off temporarily - just switch the running instance to a wide open
+security group and then when you are done stesting switch back to the `cloudflare-80`
+security group.
+
+Page Rules
+----------
+
+You get three free page rules in CloudFlare - here are some recommended settings.
+We give extra protection to the admin URLs, and in effect turn off CloudFlare
+for two pages that function like APIs.
+
+    *.dj4e.com/tsugi/admin
+    Browser Integrity Check: On, Security Level: High, Cache Level: Bypass
+
+    *.dj4e.com/tsugi/lti
+    Browser Integrity Check: Off, Security Level: Essentially Off, Cache Level: Bypass
+
+    *.dj4e.com/tsugi/api
+    Browser Integrity Check: Off, Security Level: Essentially Off, Cache Level: Bypass
+
+Notes:
+
+Disable Browser Integrity Check for your API - 
+https://support.cloudflare.com/hc/en-us/articles/200504045
+
 Clearing Cache
 --------------
 
