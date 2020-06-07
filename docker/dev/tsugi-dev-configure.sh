@@ -24,13 +24,6 @@ else
     fi
 fi
 
-echo "Installing phpMyAdmin"
-rm -rf /var/www/html/phpMyAdmin
-cd /root
-unzip phpMyAdmin-4.7.9-all-languages.zip
-mv phpMyAdmin-4.7.9-all-languages /var/www/html/phpMyAdmin
-rm phpMyAdmin-4.7.9-all-languages.zip
-
 if [ -z "$MYSQL_ROOT_PASSWORD" ]; then
 ROOT_PASS=root
 else
@@ -43,48 +36,19 @@ mysql -u root --password=$ROOT_PASS << EOF
     GRANT ALL ON tsugi.* TO 'ltiuser'@'127.0.0.1' IDENTIFIED BY 'ltipassword';
 EOF
 
-# This might be a read-write volume from before
-if [ ! -d /var/www/html/tsugi/.git ]; then
-  cd /var/www/html/
-  rm /var/www/html/index.html
-  if [ -n "$MAIN_REPO" ] ; then
-    echo Cloning $MAIN_REPO
-    git clone $MAIN_REPO site
-  else
-    echo Cloning default repo
-    git clone https://github.com/tsugicloud/dev-jekyll-site.git site
-  fi
-  cd site
-  mv .git* .hta* * ..
-  cd ..
-  rm -r site 
+echo "Updating build scripts..."
+cd /root/tsugi-build
+git pull
 
-  cd /var/www/html/
-  git clone https://github.com/tsugiproject/tsugi.git
+bash /root/tsugi-build/common/tsugi-setup.sh
 
-  # Make sure FETCH_HEAD and ORIG_HEAD are created
-  cd /var/www/html/tsugi
-  git pull
+echo "Installing phpMyAdmin"
+rm -rf /var/www/html/phpMyAdmin
+cd /root
+unzip phpMyAdmin-4.7.9-all-languages.zip
+mv phpMyAdmin-4.7.9-all-languages /var/www/html/phpMyAdmin
+rm phpMyAdmin-4.7.9-all-languages.zip
 
-  # Seed with a few tools
-  cd /var/www/html/tsugi/mod
-  git clone https://github.com/tsugitools/youtube
-  git clone https://github.com/tsugitools/attend
-  git clone https://github.com/tsugitools/cats
-
-  mv /root/www/info.php /var/www/html
-  mv /root/www/config.php /var/www/html/tsugi
-fi
-
-# Create/update the tables
-cd /var/www/html/tsugi/admin
-php upgrade.php
-
-# Make git work from the browser
-cp /usr/bin/git /usr/local/bin/gitx
-chown www-data:www-data /usr/local/bin/gitx
-chmod a+s /usr/local/bin/gitx
-chown -R www-data:www-data /var/www/html/tsugi
 
 # if COMPLETE
 fi
