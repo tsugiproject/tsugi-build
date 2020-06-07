@@ -60,6 +60,11 @@ your `user_data.sh` as follows:
 
     export TSUGI_MEMCACHED=tsugi-memcache.9f8gf8.cfg.use2.cache.amazonaws.com:11211
 
+Note that at the end of the `user_data_sample.sh` there is a place where you 
+can add commands to install more software, or set up additional configurations.   There
+are also two shell scripts you can write which are executed regularly by the cron process.
+See comments in `user_data_sample.sh` for more detail.
+
 Setting up Email
 ================
 
