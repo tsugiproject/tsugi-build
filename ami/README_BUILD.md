@@ -41,10 +41,12 @@ run the following sequence:
 Make an AMI by taking a snapshot of your EC2 instance once it is powered off.
 Name it something like:
 
-    tsugi-php-2020-06-04-ubuntu18.04-php7.3
+    tsugi-php-2020-06-07-ubuntu18.04-php7.3
 
 Give it a description in the AMI detail screen once it is created - it
 is the one thing you can edit.
+
+    This is a production build of Tsugi with Ubuntu 18.04 and PHP 7.3.
 
 When you build a server based on an AMI, the `configure` scripts 
 check out the latest version of Tsugi so you can keep using the same AMI

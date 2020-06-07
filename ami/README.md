@@ -5,7 +5,7 @@ Building a Tsugi Instance from an AMI
 To run this process, you first need to build an AMI with all the Tsugi software
 installed or select a Tsugi Public AMI (once I get that working).
 
-When you build a server based on an AMI, the `configure` scripts 
+When you build a server based on an AMI, the `configure` scripts
 check out the latest version of Tsugi so you can keep using the same AMI
 for quite a while.  You only need to make a new AMI if
 you want a new version of PHP or some other software component or the `prepare`
@@ -14,8 +14,8 @@ scripts need to be changed.
 CloudFlare
 ----------
 
-Make sure to look through the `cloudflare` folder and do any necessary setup to 
-use CloudFlare.  Tsugi loves to work behind CloudFlare.   It saves bandwidth, 
+Make sure to look through the `cloudflare` folder and do any necessary setup to
+use CloudFlare.  Tsugi loves to work behind CloudFlare.   It saves bandwidth,
 decreases load times for users around the world, and provides excellent protection
 agains Distributed Denial of Servce (DDOS) attacks is you put your servers in
 an AWS security group that only accepts connections from CloudFlare.
@@ -59,12 +59,12 @@ Put the hostname of your newly minted EFS volume in your `user_data.sh` as follo
 Make a single-node ElasticCache / Memcache server. I use a t2.small and it has plenty of power
 and memory since PHP sessions in Tsugi are pretty small.  Tsugi does not yet understand a cluster
 of memcache servers - so just make one of the correct size.  Watch things like free memory
-on a Cloudwatch dashboard - you will likely find that it is very relaxed and nowhere 
+on a Cloudwatch dashboard - you will likely find that it is very relaxed and nowhere
 near running out of memory.  Configure in your `user_data.sh` as follows:
 
     export TSUGI_MEMCACHED=tsugi-memcache.9f8gf8.cfg.use2.cache.amazonaws.com:11211
 
-Note that at the end of the `user_data_sample.sh` there is a place where you 
+Note that at the end of the `user_data_sample.sh` there is a place where you
 can add commands to install more software, or set up additional configurations.   There
 are also two shell scripts you can write which are executed regularly by the cron process.
 See comments in `user_data_sample.sh` for more detail.
@@ -113,25 +113,39 @@ Making an EC2 Instance Using the AMI
 To build your EC2 Instance, make a new instance and start with the AMI you created above.  Or start with
 one of the official AMIs (if we make them available).
 
-At "Step 2: Choose an Instance Type" - I use a t2.micro if this will be a medium to low server
+**Step 1: Choose an Amazon Machine Image (AMI)**
+
+Using a Public AMI - TBD
+
+Using your AMI - Select "My AMIs", find your AMI and select it.
+
+**Step 2: Choose an Instance Type**
+
+I use a t2.micro if this will be a medium to low server
 or if I am going to use an Auto Scaling Group.  If I thing this might get a bit more traffic,
 but I don't want to use an ASG, use t2.small or t2.medium.  The nice thing is that it is easy to
 change the instance type in a pinch - but if you want to keep costs low and handle a wide range
-of load - using t2.micros and an ASG is the best way to go. 
+of load - using t2.micros and an ASG is the best way to go.
 
-At "Step 3: Configure Instance Details" ask for an auto-assigned Public IP.  These are free as 
-long as they are connected to an instance.  And it is useful if later you want to make a new
-instance and move that IP to the new instance.  Then scroll down to "Advanced Details" and "User Data".
-Paste in the entire contents of your `user_data.sh` configuration. 
+**Step 3: Configure Instance Details**
+
+Most of the defaults are OK on this screen.  But we need to configure the instance.
+Scroll down to "Advanced Details" and "User Data".
+Select "As Text" and paste in the entire contents of your `user_data.sh` configuration.
 Copy everything from the "#! /bin/bash" to the end of the file.
 When the EC2 provisioning process sees the hashbang, it runs the user data as a shell script.
 
-At "Step 4: Add Storage" - Keep the default 8GB - every bit of data that grows except logs is stored
-outside the server.
+**Step 4: Add Storage**
 
-At "Step 5: Add Tags" - Make sure to add a name tag
+Keep the default 8GB - every bit of data that grows except logs is stored outside the server.
 
-At "Step 6: Configure Security Group" - make sure to "Select an existing security group" and pick
+**Step 5: Add Tags**
+
+Make sure to add a name tag
+
+**Step 6: Configure Security Group**
+
+Make sure to "Select an existing security group" and pick
 the right security group.  For example if you are only accepting connections from CloudFlare
 then pick your `cloudflare-80` security group or whatever you named it.
 
@@ -148,6 +162,12 @@ http://3.15.21.67/
 
 See the `cloudflare` instructions on how to temporarily sneak by the security group for initial testing.
 
+Single (non-autoscaled) Server in CloudFlare
+--------------------------------------------
+
+Once you have an IP address simply log into your CloudFlare configuration and route the www subdomain
+to that IP address
+
 Making an Autoscaling Group Using the AMI
 -----------------------------------------
 
@@ -162,7 +182,7 @@ but you can copy a Launch Config and make a new one to tweak.
 
 A good testing trick as you make and test new launch configurations is to edit the ASG and
 switch from desired=1, min=1, max=1 and desired=0, min=0, max=0 to bring the instances up and
-down.  
+down.
 
 References
 ----------
