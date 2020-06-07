@@ -41,21 +41,6 @@ EOF
 
 fi
 
-echo "Update the scripts to the latest"
-
-cd /root/tsugi-build
-git pull
-
-if [ ! -z "$AUTO_UPDATE_ENABLE" ]; then
-    echo "Setting up automatic update"
-
-    echo ====== Setting up cron jobs
-    chmod 664 /root/tsugi-build/common/cron*.sh
-
-    cp /root/tsugi-build/common/crontab.txt /var/spool/cron/crontabs/root
-    chmod 600 /var/spool/cron/crontabs/root
-fi
-
 # if COMPLETE
 fi
 
