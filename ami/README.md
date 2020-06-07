@@ -9,7 +9,8 @@ Make the pre-instance to make the ami
     t2.micro
     don't put user data in for the pre-process
 
-Once your EC2 Instance is up and running, log in and run the following sequence:
+Once your EC2 Instance is up and running and you have an IP address, log in and
+run the following sequence:
 
     ssh ubuntu@13.59.45.131
     sudo bash
@@ -25,8 +26,22 @@ Name it something like:
 
     tsugi-ubuntu18.04-php7.3-2020-06-04
 
+When you build a server based on an AMI, the `configure` scripts 
+check out the latest version of Tsugi so you can keep using the same AMI
+for quite a while.  You only need to make a new AMI if
+you want a new version of PHP or some other software component.
+
+CloudFlare
+----------
+
+Make sure to look through the `cloudflare` folder and do any necessaey setup to 
+use CloudFlare.  Tsugi loves to work behind CloudFlare.   It saves bandwidth, 
+decreases load times for users around the world, and provides excellent protection
+agains Distributed Denial of Servce (DDOS) attacks is you put your servers in
+an AWS security group that only accepts connections from CloudFlare.
+
 Creating the Necessary Services and Building the User Data
-==========================================================
+----------------------------------------------------------
 
 Take a look at the `user_data_sample.sh` file - make your own copy of it.  Once you edit it
 do not check it into a public repo.
@@ -66,7 +81,7 @@ are also two shell scripts you can write which are executed regularly by the cro
 See comments in `user_data_sample.sh` for more detail.
 
 Setting up Email
-================
+----------------
 
 We need to enable outbound mail using Amazon's Simple Email Service:
 
@@ -104,7 +119,7 @@ Add these records to the `user_data.sh` for the servers.
 I think you can use the same IAM user for more than one domain.
 
 Making an EC2 Instance Using the AMI
-====================================
+------------------------------------
 
 To build your EC2 Instance, make a new instance and start with the AMI you created above.  Or start with
 one of the official AMIs (if we make them available).
@@ -120,7 +135,7 @@ After it comes up - you can see the post-ami process output in:
     tail -f /var/log/cloud-init-output.log
 
 Making an Autoscaling Group Using the AMI
-=========================================
+-----------------------------------------
 
 It is good for testing to intiially make your Launch Configuration and AutoScaling Group without
 automatically adding them to your Target Group for your ELB.  This way you can get things
@@ -136,7 +151,7 @@ switch from desired=1, min=1, max=1 and desired=0, min=0, max=0 to bring the ins
 down.  
 
 References
-==========
+----------
 
 About EFS and /etc/fstab
 
