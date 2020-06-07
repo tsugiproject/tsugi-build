@@ -16,7 +16,7 @@ FROM tsugi_base:latest
 
 COPY tsugi-prod-configure.sh /usr/local/bin
 
-COPY ./www ./www
+# COPY ./www ./www
 
 # Set environment variables.
 ENV HOME /root
