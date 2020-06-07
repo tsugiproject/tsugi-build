@@ -193,7 +193,7 @@ echo ======= Cleanup Done
 # https://askubuntu.com/questions/2368/how-do-i-set-up-a-cron-job
 
 echo ====== Setting up cron jobs
-cp /roor/tsugi-build/crontab.txt /var/spool/cron/crontabs/root
+cp /root/tsugi-build/crontab.txt /var/spool/cron/crontabs/root
 chmod 600 /var/spool/cron/crontabs/root
 
 service cron restart
