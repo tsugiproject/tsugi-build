@@ -151,7 +151,7 @@ git pull
 # Fix the config.php file
 if [ ! -f /var/www/html/tsugi/config.php ] ; then
     echo Building config.php
-    php /root/tsugi-build/fixconfig.php < /root/tsugi-build/config.php > /var/www/html/tsugi/config.php
+    php /root/tsugi-build/common/fixconfig.php < /root/tsugi-build/common/config.php > /var/www/html/tsugi/config.php
 fi
 
 # Create/update the Tsugi database tables
