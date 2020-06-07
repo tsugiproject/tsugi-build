@@ -133,8 +133,8 @@ See the `ami` folder for the more complex AMI setup.
 
 Developer setup is prettty simple because there are no external servers:
 
-    cd /root/tsugi-build
-    cp ubuntu-env-dev.sh ubuntu-env.sh
+    cd /root
+    cp tsugi-build/ubuntu/ubuntu-env-dev.sh ubuntu-env.sh
     source ubuntu-env.sh
     bash /usr/local/bin/tsugi-dev-configure.sh return
 
@@ -144,8 +144,8 @@ Configure a Demo Server
 Demo setup requires that you edit your configuration but there are no external
 servers needed:
 
-    cd /root/tsugi-build
-    cp ubuntu-env-demo.sh ubuntu-env.sh
+    cd /root
+    cp tsugi-build/ubuntu/ubuntu-demo-dev.sh ubuntu-env.sh
 
     # Edit the ubuntu-env.sh and put your values in it
 
@@ -168,8 +168,8 @@ So you need to set up all the needed pre-requisites and add them to the configur
 
 The general outline is:
 
-    cd /root/tsugi-build
-    cp ubuntu-env-prod.sh ubuntu-env.sh
+    cd /root
+    cp tsugi-build/ubuntu/ubuntu-prod-dev.sh ubuntu-env.sh
 
     # Edit the ubuntu-env.sh and put your values in it
 
@@ -177,9 +177,9 @@ The general outline is:
     bash /usr/local/bin/tsugi-prod-configure.sh return
 
 This pattern of hand-minting an ubuntu server and hand-minting all of the pre-requisites
-ia __difficult__ - If you are running production and want more of a cookie-cutter approach
-take a look at the instructions under the `ami` folder.  It is far more specific and much easier
-to do.
+is __difficult__ - If you are running production and want more of a cookie-cutter approach
+take a look at the instructions under the `ami` folder.  It is far more specific and
+much easier to do.
 
 Getting a LetsEncrypt Certificate
 ----------------------------------
