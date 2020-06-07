@@ -48,11 +48,29 @@ export POSTFIX_SASL_PASSWORD="[email-smtp.us-east-1.amazonaws.com]:587 AKIKJHDSK
 
 EOF
 
-source /root/tsugi_env.sh
+source /root/ubuntu-env.sh
 
-# Get the latest
+# Get the latest build scripts
 cd /root/tsugi-build
 git pull
+
+# Here you can add commands that will run once when the system is being configured after
+# being created from the AMI.
+
+# apt-get update
+# apt-get -y install zip
+# which zip
+
+# If you like, you can also create two scripts that will be run by cron
+
+# cat << EOF > /root/cron_extra_root.sh
+# echo This script runs as root from cron at least once per hour after all the other cron jobs have run
+# EOF
+
+# cat << EOF > /root/cron_extra.sh
+# echo This script runs as www-data from cron at least once per hour after all the other cron jobs have run
+# echo and after cron_extra_root.sh has run
+# EOF
 
 bash /usr/local/bin/tsugi-prod-configure.sh return
 
