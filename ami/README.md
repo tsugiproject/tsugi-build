@@ -8,12 +8,13 @@ installed or select a Tsugi Public AMI (once I get that working).
 When you build a server based on an AMI, the `configure` scripts 
 check out the latest version of Tsugi so you can keep using the same AMI
 for quite a while.  You only need to make a new AMI if
-you want a new version of PHP or some other software component.
+you want a new version of PHP or some other software component or the `prepare`
+scripts need to be changed.
 
 CloudFlare
 ----------
 
-Make sure to look through the `cloudflare` folder and do any necessaey setup to 
+Make sure to look through the `cloudflare` folder and do any necessary setup to 
 use CloudFlare.  Tsugi loves to work behind CloudFlare.   It saves bandwidth, 
 decreases load times for users around the world, and provides excellent protection
 agains Distributed Denial of Servce (DDOS) attacks is you put your servers in

@@ -29,10 +29,13 @@ Name it something like:
 When you build a server based on an AMI, the `configure` scripts 
 check out the latest version of Tsugi so you can keep using the same AMI
 for quite a while.  You only need to make a new AMI if
-you want a new version of PHP or some other software component.
+you want a new version of PHP or some other software component or the `prepare`
+scripts need to be changed.
+
 
 Releasing a Community Tsugi AMI
 -------------------------------
 
-TBD
+TBD - This is coming after a bit more testing of this whole AMI process
+has been done.
 
