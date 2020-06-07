@@ -30,6 +30,7 @@ apt-get install -y libapache2-mod-php7.3 php7.3-mysql php7.3-curl php7.3-json
 apt-get install -y php7.3-mbstring php7.3-zip php7.3-xml php7.3-gd
 apt-get install -y php7.3-apc
 apt-get install -y php7.3-intl
+apt-get install -y php-memcached php-memcache
 apt-get install -y mysql-client
 apt-get install -y nfs-common
 apt-get install -y certbot python-certbot-apache
