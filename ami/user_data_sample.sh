@@ -16,7 +16,6 @@ export TSUGI_OWNEREMAIL=drchuck@learnxp.com
 export TSUGI_PROVIDEKEYS=true
 export TSUGI_AUTOAPPROVEKEYS='/.+@.+\\.edu/'
 
-export TSUGI_SETUP_GIT=yes
 export TSUGI_MAILDOMAIN=www.tsugicloud.org
 export TSUGI_APPHOME=https://www.tsugicloud.org
 export TSUGI_WWWROOT=https://www.tsugicloud.org/tsugi

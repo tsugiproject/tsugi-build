@@ -135,6 +135,9 @@ if [ ! -f /var/www/html/tsugi/config.php ] ; then
     php /root/tsugi-build/common/fixconfig.php < /root/tsugi-build/common/config.php > /var/www/html/tsugi/config.php
 fi
 
+echo Re-starting Apache before running Tsugi scripts
+/usr/sbin/apachectl restart
+
 # Create/update the Tsugi database tables
 cd /var/www/html/tsugi/admin
 php upgrade.php
@@ -183,6 +186,6 @@ chown -R www-data:www-data /var/www/html
 echo Setting Apache to auto-start on reboot
 update-rc.d apache2 defaults
 
-echo Starting Apache
-/usr/sbin/apachectl start
+echo Re-starting Apache (again)
+/usr/sbin/apachectl restart
 

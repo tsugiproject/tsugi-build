@@ -147,9 +147,11 @@ Make sure to add a name tag
 
 Make sure to "Select an existing security group" and pick
 the right security group.  For example if you are only accepting connections from CloudFlare
-then pick your `cloudflare-80` security group or whatever you named it.
+then pick your `cloudflare-80` security group or whatever you named it.   Sometimes it is
+easier to select a more open security group at this point and swithc to the `cloudflare-80`
+security group later.
 
-After the provisioning is complete, the tusig-build configure processes will run.  If you want to see
+After the provisioning is complete, the tsugi-build configure processes will run.  If you want to see
 them in action while provisioning is running, login and watch the log file.
 
     ssh ubuntu@3.15.21.67
