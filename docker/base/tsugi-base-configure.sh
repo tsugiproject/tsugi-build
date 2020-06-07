@@ -5,7 +5,16 @@ if [ -f "$COMPLETE" ]; then
     echo "Base configure already has run"
 else
 
-# sanity check in case Docker went wrong with freshly mounted html folder
+# Save the Environment Variables for later cron jobs if we are starting from Docker
+if [ ! -f "/root/ubuntu-env.sh" ] ; then
+    echo "# created from tsugi-base-configure.sh" > /root/ubuntu-env.sh
+    env | sort | grep '^TSUGI' | sed 's/^/export /' >>  /root/ubuntu-env.sh
+    env | sort | grep '^POSTFIX' | sed 's/^/export /' >>  /root/ubuntu-env.sh
+    env | sort | grep '^MYSQL' | sed 's/^/export /' >>  /root/ubuntu-env.sh
+    env | sort > /root/tsugi-env-raw-dump
+fi
+
+# Sanity check in case Docker went wrong with freshly mounted html folder
 if [ -d "/var/www/html" ] ; then
     echo "Normal case: /var/www/html is a directory";
 else
@@ -22,8 +31,6 @@ else
     fi
 fi
 
-# if COMPLETE
-fi
 
 if [ ! -z "$APACHE_SERVER_NAME" ]; then
 cat >> /etc/apache2/sites-available/000-default.conf << EOF
@@ -57,6 +64,9 @@ if [ ! -z "$AUTO_UPDATE_ENABLE" ]; then
 
     cp /root/tsugi-build/common/crontab.txt /var/spool/cron/crontabs/root
     chmod 600 /var/spool/cron/crontabs/root
+fi
+
+# if COMPLETE
 fi
 
 touch $COMPLETE
