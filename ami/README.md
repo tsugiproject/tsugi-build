@@ -3,7 +3,7 @@ Building a Tsugi Instance from an AMI
 =====================================
 
 To run this process, you first need to build an AMI with all the Tsugi software
-installed or select a Tsugi Public AMI (once I get that working).
+installed or use a Tsugi Public AMI.
 
 When you build a server based on an AMI, the `configure` scripts
 check out the latest version of Tsugi so you can keep using the same AMI
@@ -115,9 +115,10 @@ one of the official AMIs (if we make them available).
 
 **Step 1: Choose an Amazon Machine Image (AMI)**
 
-Using a Public AMI - TBD
+_Using a Public AMI_ - Select "Community APIs" and search for "tsugi-php-prod"
+and pick the latest version. (<a href="images/01-tsugi-prod-community-ami.png" target="_blank">Example</a>)
 
-Using your AMI - Select "My AMIs", find your AMI and select it.
+_Using your AMI_ - Select "My AMIs", find your AMI and select it.
 
 **Step 2: Choose an Instance Type**
 
