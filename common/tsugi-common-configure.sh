@@ -1,13 +1,12 @@
-echo "Running Tsugi setup"
+echo "Running Tsugi common configure"
 
-echo Running tsugi-setup `date "+%F-%T"`
-touch /tmp/tsugi-setup-`date "+%F-%T"`
-
-# source /home/ubuntu/tsugi_env.sh
+echo Running tsugi-common `date "+%F-%T"`
+touch /tmp/tsugi-common-`date "+%F-%T"`
 
 echo "====== Environment variables"
 env | sort
 
+if [ -d /home/ubuntu ] ; then
 cat << EOF >> /home/ubuntu/.bashrc
 if [ "\$EUID" -ne 0 ]
 then
@@ -16,6 +15,7 @@ else
 PS1="\e[0;31m${TSUGI_SERVICENAME}:\e[m\e[0;34m\w\e[m# "
 fi
 EOF
+fi
 
 apt-get update
 
@@ -155,12 +155,6 @@ chown -R www-data:www-data /var/www/html
 cd /var/www/html/tsugi/admin
 php upgrade.php
 
-# Make git work from the browser
-if [ -n "$TSUGI_SETUP_GIT" ] ; then
-  echo "Enabling git from the browser"
-  chmod a+s /usr/local/bin/gitx
-fi
-
 echo ======= Cleanup Start
 df
 apt-get -y autoclean
@@ -172,11 +166,16 @@ echo ======= Cleanup Done
 
 # https://askubuntu.com/questions/2368/how-do-i-set-up-a-cron-job
 
-echo ====== Setting up cron jobs
-cp /root/tsugi-build/crontab.txt /var/spool/cron/crontabs/root
-chmod 600 /var/spool/cron/crontabs/root
+if [ ! -z "$AUTO_UPDATE_ENABLE" ]; then
+    echo "Setting up automatic update"
 
-service cron restart
+    echo ====== Setting up cron jobs
+    chmod 664 /root/tsugi-build/common/cron*.sh
+
+    cp /root/tsugi-build/common/crontab.txt /var/spool/cron/crontabs/root
+    chmod 600 /var/spool/cron/crontabs/root
+    service cron restart
+fi
 
 # Patch permissions (again)
 chown -R www-data:www-data /var/www/html

@@ -21,7 +21,7 @@ echo "Updating build scripts..."
 cd /root/tsugi-build
 git pull
 
-bash /root/tsugi-build/common/tsugi-setup.sh
+bash /root/tsugi-build/common/tsugi-common-configure.sh
 
 # if COMPLETE
 fi

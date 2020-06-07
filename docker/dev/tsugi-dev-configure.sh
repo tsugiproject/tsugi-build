@@ -40,7 +40,7 @@ echo "Updating build scripts..."
 cd /root/tsugi-build
 git pull
 
-bash /root/tsugi-build/common/tsugi-setup.sh
+bash /root/tsugi-build/common/tsugi-common-configure.sh
 
 echo "Installing phpMyAdmin"
 rm -rf /var/www/html/phpMyAdmin
