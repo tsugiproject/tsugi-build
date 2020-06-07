@@ -45,15 +45,17 @@ fi
 if [ ! -d /efs ]; then
     echo ====== Setting up the efs volume
     mkdir /efs
-    mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 $TSUGI_NFS_VOLUME:/ /efs
-    if grep --quiet /efs /etc/fstab ; then
+    if [ -n "$TSUGI_NFS_VOLUME" ] ; then
+      mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 $TSUGI_NFS_VOLUME:/ /efs
+      if grep --quiet /efs /etc/fstab ; then
         echo Fstab already has efs mount
-    else
-        echo Adding efs mount to /etc/fstab
-        cat << EOF >> /etc/fstab
+      else
+          echo Adding efs mount to /etc/fstab
+          cat << EOF >> /etc/fstab
 $TSUGI_NFS_VOLUME:/ /efs nfs4 nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,_netdev,noresvport 0 0
 EOF
-    fi
+      fi
+   fi
 fi
 
 if [ ! -d /efs ]; then
