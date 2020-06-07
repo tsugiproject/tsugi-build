@@ -186,6 +186,6 @@ chown -R www-data:www-data /var/www/html
 echo Setting Apache to auto-start on reboot
 update-rc.d apache2 defaults
 
-echo Re-starting Apache (again)
+echo Re-starting Apache
 /usr/sbin/apachectl restart
 
