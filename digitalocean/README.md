@@ -55,6 +55,6 @@ Edit the `ubuntu-dev.sh` file to reflect your configuration and passwords
 and then configure your server.
 
     source ubuntu-env.sh
-    bash /usr/local/bin/tsugi-dev-configure.sh return
+    bash /root/tsugi-build/docker/dev/tsugi-dev-configure.sh return
 
 I would also save this file somewhere

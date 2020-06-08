@@ -17,13 +17,15 @@ chown -R mysql:mysql /var/lib/mysql
 
 # https://stackoverflow.com/questions/9083408/fatal-error-cant-open-and-lock-privilege-tables-table-mysql-host-doesnt-ex
 # This happens if /var/lib/mysql is a fresh mount
-if [ ! -f /var/lib/mysql/mysql ]; then
-    echo Re-initializing the mysql database
-    mysql_install_db --user=mysql --ldata=/var/lib/mysql
+## if [ ! -f /var/lib/mysql/mysql ]; then
+    ## echo Re-initializing the mysql database
+    ## mysql_install_db --user=mysql
+##
+    ## echo Starting mysql
+    ## service mysql start
+    ## # Note this is different than in the AMI since it is 100% fresh
+## fi
 
-    echo Starting mysql
-    service mysql start
-    # Note this is different than in the AMI since it is 100% fresh
     if [ -z "$MYSQL_ROOT_PASSWORD" ]; then
         echo "Setting mysql root password to default pw"
         /usr/bin/mysqladmin -u root --password=root password root
@@ -31,7 +33,6 @@ if [ ! -f /var/lib/mysql/mysql ]; then
         echo "Setting mysql root password to $MYSQL_ROOT_PASSWORD"
         /usr/bin/mysqladmin -u root --password=root password "$MYSQL_ROOT_PASSWORD"
     fi
-fi
 
 # COMPLETE
 fi
