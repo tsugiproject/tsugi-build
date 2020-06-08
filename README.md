@@ -5,9 +5,9 @@ Build Scripts for Tsugi
 This is a series of build scripts that allow you to build various
 versions of Tsugi servers on various ubuntu instances.
 
-* Quick Start documentation as to how to build a self-contained Tsugi
+* Quick Start documentation as to how to bring a self-contained Tsugi
 server up on Digital Ocean [README](digitalocean/README.md).
-These instructions can be adapted to any basic Linux hosting
+These quick start instructions can be adapted to any basic Linux hosting
 environment.
 
 * More detailed documentation on how these scripts can be run inside
