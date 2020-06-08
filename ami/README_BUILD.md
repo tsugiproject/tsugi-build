@@ -34,6 +34,7 @@ run the following sequence:
     git clone https://github.com/tsugiproject/tsugi-build.git
     cd tsugi-build
     bash ubuntu/build-prod.sh
+    bash ubuntu/build-dev.sh    # To build a demo / dev instance
 
     # Navigate to http://13.59.45.131 make sure you see the empty Apache screen...
     systemctl poweroff
@@ -43,10 +44,14 @@ Name it something like:
 
     tsugi-php-prod-2020-06-07-ubuntu18.04-php7.3
 
+    tsugi-php-demo-2020-06-07-ubuntu18.04-php7.3
+
 Give it a description in the AMI detail screen once it is created - it
 is the one thing you can edit.
 
     This is a production build of Tsugi with Ubuntu 18.04 and PHP 7.3.
+
+    This is a dev/demo build of Tsugi with Ubuntu 18.04 and PHP 7.3.
 
 When you build a server based on an AMI, the `configure` scripts 
 check out the latest version of Tsugi so you can keep using the same AMI
@@ -58,8 +63,12 @@ scripts need to be changed.
 Releasing a Community Tsugi AMI
 -------------------------------
 
-TBD - This is coming after a bit more testing of this whole AMI process
-has been done.
+This is a pretty simple proces.  Make sure the name and description are suitable
+and set permissions to public.  It takes about five minutes to show up in the
+"Community AMIs".
+
+Please don't release any Tsugi APIs with the same naming pattern of "tsugi-php" 
+as the prefix.
 
 
 
