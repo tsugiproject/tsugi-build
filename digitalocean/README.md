@@ -59,9 +59,11 @@ somewhere secure outside of the server.
     source ubuntu-env.sh
     bash /root/tsugi-build/docker/dev/tsugi-dev-configure.sh return
 
+Don't worry - we are not using docuker - the script we need is just shared
+between the docker and non-docker processes.
 When this script finishes your server should be up and running try these urls:
 
-* Top page - http://104.248.55.73/
+* Top page - http://104.248.55.73/  (<a href="images/05-server-up-ip.png" target="_blank">Example</a>)
 * Tsugi admin - http://104.248.55.73/tsugi
 * PHPMyAdmin - http://104.248.55.73/phpMyAdmin
 
@@ -70,5 +72,67 @@ You can remove phpMyAdmin if you feel it is a security problem by:
     rm -rf /var/www/html/phpMyAdmin
 
 Or perhaps moving it somewhere else.
+
+At this point you can manage your server by hand.  You can fine tune things
+in config.php, install tools, run scripts, etc.  Some of the scripts
+in `/root/tsugi-build/common` are designed to be run by hand in your server.
+
+Connecting to a Domain Name
+---------------------------
+
+To connect this with a domain name, you can either route your domain to the IP
+address or use __CloudFlare__.   CloudFlare is a great way to go as it solves
+several problems at once:
+
+* It gives you an https certificate automatically.
+
+* It does DDOS (Distributed Denial of Service) protection
+
+* It adds a caching layer for things like static assets
+
+If you want to use CloudFlare, see the instructions in
+[../cloudflare/README.md](CloudFlare folder).
+
+Getting a LetsEncrypt Certificate
+---------------------------------
+
+If you are not using CloudFlare, you will need to update your DNS entry
+for the server to point to the IP address of your DigitalOcean instance.
+It takes a while for DNS to propagate so you should wait before proceeding
+until you can access the server by domain name instead of IP address:
+
+http://ocean.tsugicloud.org/ (<a href="images/06-server-up-dns.png" target="_blank">Example</a>)
+
+Once that works, and assuming that your `ubuntu-env.sh` had the right 
+setting for `APACHE_SERVER_NAME`, you should be ready to get a LetsEncrypt
+certificate using the following commands:
+
+    cd /root
+    certbot --apache
+
+Give it a real email address, answer the questions, and enter your domain name.
+The certbot will automaticall create and install a certificate and then it will ask you:
+
+    Please choose whether or not to redirect HTTP traffic to HTTPS, removing HTTP access.
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    1: No redirect - Make no further changes to the webserver configuration.
+    2: Redirect - Make all requests redirect to secure HTTPS access. Choose this for
+    new sites, or if you're confident your site works on HTTPS. You can undo this
+    change by editing your web server's configuration.
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    Select the appropriate number [1-2] then [enter] (press 'c' to cancel): 
+
+The correct answer is **2** - once you enter this things should complete and you should be able
+to access your site at
+
+https://ocean.tsugicloud.org/ (<a href="images/07-server-up-https.png" target="_blank">Example</a>)
+
+Viola!  
+
+You will have to set up the auto-renewal process for your certificate using cron.  See
+the LetsEncrypt documentation for details.  All the software you need ot renew is
+already installed.
+
+
 
 
