@@ -1,5 +1,5 @@
 
-# Copy to ubuntu-env.sh and edit
+# Copy to /root/ubuntu-env.sh and edit
 
 # This controls how Tsugi is set up on this server.
 

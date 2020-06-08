@@ -23,7 +23,7 @@ an AWS security group that only accepts connections from CloudFlare.
 Creating the Necessary Services and Building the User Data
 ----------------------------------------------------------
 
-Take a look at the `user_data_sample.sh` file - make your own copy of it.  Once you edit it
+Take a look at the `user_data_prod.sh` file - make your own copy of it.  Once you edit it
 do not check it into a public repo.
 
 Make an Aurora instance.
@@ -73,10 +73,10 @@ near running out of memory.  Configure in your `user_data.sh` as follows:
 
     export TSUGI_MEMCACHED=tsugi-memcache.9f8gf8.cfg.use2.cache.amazonaws.com:11211
 
-Note that at the end of the `user_data_sample.sh` there is a place where you
+Note that at the end of the `user_data_prod.sh` there is a place where you
 can add commands to install more software, or set up additional configurations.   There
 are also two shell scripts you can write which are executed regularly by the cron process.
-See comments in `user_data_sample.sh` for more detail.
+See comments in `user_data_prod.sh` for more detail.
 
 Setting up Email
 ----------------
