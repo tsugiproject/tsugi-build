@@ -5,23 +5,24 @@ Build Scripts for Tsugi
 This is a series of build scripts that allow you to build various
 versions of Tsugi servers on various ubuntu instances.
 
-* Quick Start documentation as to how to build a self-contained Tsugi 
-server up on DigitalOcean [DigitalOcean](digitalocean/README.md).
-These instructions can be adapted to any basic Linux hosting 
+* Quick Start documentation as to how to build a self-contained Tsugi
+server up on [DigitalOcean](digitalocean/README.md).
+These instructions can be adapted to any basic Linux hosting
 environment.
 
 * More detailed documentation on how these scripts can be run inside
 of a bare ubuntu distribution to prepare the instance to
-run Tsugi [ubuntu](ubuntu/README.md)
+run Tsugi [ubuntu README](ubuntu/README.md)
 
-* How build an Amazon EC2 instance of Tsugi for scalable and hardened 
+* How build an Amazon EC2 instance of Tsugi for scalable and hardened
 production using Aurora Serverless, ELasticache, Simple Email
 Service, and Elastic File System, Load Balancing, and Auto Scaling
-Groups.  [AMI](ami/README.md)  You can use the `tsugi-public-prod`
+Groups.  [AMI README](ami/README.md)  You can use the `tsugi-public-prod`
 Community AMIs or build your own AMI (ami/README-build.md).
 
 * Dockerfiles that produce docker images that can be used for
-development, testing, docker swarm, or Kubernetes [Docker](docker/README.md).
+development, testing, docker swarm, or
+Kubernetes [Docker README](docker/README.md).
 At this point there is documentation and scripts that produce
 the images - but there is no swarm or kubernetes documentation.
 

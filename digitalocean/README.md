@@ -2,14 +2,12 @@
 Using Digital Ocean For Moderate Production
 -------------------------------------------
 
-**Under Construction**
-
 If you want professional grade hosting, you would be well served
 to use Amazon AWS and use all their magical scalable widgets like
 Aurora Serverless, ElastiCache, Auto Scaling Groups, and EFS.
 
 But sometimes you just want the equivalent of a simple self-contained
-server like the one you used to run under your desk.  DigitalOcean
+Ubuntu server like the one you used to run under your desk.  DigitalOcean
 is much easier than Amazon for that use case.
 
 Making a Tsugi Droplet
