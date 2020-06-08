@@ -8,15 +8,21 @@ if [ -f "$COMPLETE" ]; then
 else
 
 if [ -z "$MYSQL_ROOT_PASSWORD" ]; then
-ROOT_PASS=root
-else
-ROOT_PASS=$MYSQL_ROOT_PASSWORD
-fi  
+MYSQL_ROOT_PASSWORD=root
+fi
 
-mysql -u root --password=$ROOT_PASS << EOF
+if [ -z "$TSUGI_USER" ]; then
+TSUGI_USER=ltiuser
+fi
+
+if [ -z "$TSUGI_PASSWORD" ]; then
+TSUGI_PASSWORD=ltipassword
+fi
+
+mysql -u root --password=$MYSQL_ROOT_PASSWORD << EOF
     CREATE DATABASE tsugi DEFAULT CHARACTER SET utf8;
-    GRANT ALL ON tsugi.* TO 'ltiuser'@'localhost' IDENTIFIED BY 'ltipassword';
-    GRANT ALL ON tsugi.* TO 'ltiuser'@'127.0.0.1' IDENTIFIED BY 'ltipassword';
+    GRANT ALL ON tsugi.* TO '$TSUGI_USER'@'localhost' IDENTIFIED BY '$TSUGI_PASSWORD';
+    GRANT ALL ON tsugi.* TO '$TSUGI_USER'@'127.0.0.1' IDENTIFIED BY '$TSUGI_PASSWORD';
 EOF
 
 echo "Updating build scripts..."
