@@ -37,7 +37,7 @@ export TSUGI_CONTEXT_TITLE='Python para todos'
 
 # TSUGI_MEMCACHED -> $CFG->memcached
 
-# If you are going to do GOogle login and/or maps
+# If you are going to do Google login and/or maps
 
 # export TSUGI_GOOGLE_CLIENT_ID=8675309-7dulj1e8675p09e38pmcm7c3.apps.googleusercontent.com 
 # export TSUGI_GOOGLE_MAP_API_KEY='AIzaS8675309bFmVe8IH8675309zbr9IGl8'
