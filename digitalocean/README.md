@@ -43,7 +43,8 @@ Install the pre-requisite software for a self-contained "developer" instance:
     bash ubuntu/build-dev.sh
 
 At this point, you could hand-install Tsugi in `/var/www/html` and set everything
-up.  Or you could use the automated Tsugi installation and configuration.
+up and edit yout `config.php`.
+Or you could use the automated Tsugi installation and configuration below.
 
 Automated Configuration
 -----------------------
@@ -52,14 +53,22 @@ Automated Configuration
     cp tsugi-build/digitalocean/ubuntu-env-ocean.sh ubuntu-env.sh
 
 Edit the `ubuntu-dev.sh` file to reflect your configuration and passwords
-and then configure your server.
+and then configure your server.  You might want to save a copy of the file
+somewhere secure outside of the server.
 
     source ubuntu-env.sh
     bash /root/tsugi-build/docker/dev/tsugi-dev-configure.sh return
 
-I would also save this file somewhere
+When this script finishes your server should be up and running try these urls:
 
-http://104.248.55.73/
-http://104.248.55.73/tsugi
+* Top page - http://104.248.55.73/
+* Tsugi admin - http://104.248.55.73/tsugi
+* PHPMyAdmin - http://104.248.55.73/phpMyAdmin
+
+You can remove phpMyAdmin if you feel it is a security problem by:
+
+    rm -rf /var/www/html/phpMyAdmin
+
+Or perhaps moving it somewhere else.
 
 
