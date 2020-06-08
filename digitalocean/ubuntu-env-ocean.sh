@@ -26,7 +26,7 @@ export TSUGI_PASSWORD=oceans_94ds932_42
 
 # Controls the host name that Apache reports - /etc/apache2/sites-available/000-default.conf
 # Important when getting a LetsEncrypt certificate
-export APACHE_SERVER_NAME=oceans.tsugicloud.org
+export APACHE_SERVER_NAME=ocean.tsugicloud.org
 
 # Automatically update software - cloud style
 export AUTO_UPDATE_ENABLE=true

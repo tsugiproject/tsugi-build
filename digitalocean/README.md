@@ -33,7 +33,7 @@ Installing Tsugi on Your Droplet
 
 Log in to your droplet as root and check out this build repository:
 
-    ssh root@104.248.56.200
+    ssh root@104.248.55.73
     cd /root
     git clone https://github.com/tsugiproject/tsugi-build.git
 
@@ -58,3 +58,8 @@ and then configure your server.
     bash /root/tsugi-build/docker/dev/tsugi-dev-configure.sh return
 
 I would also save this file somewhere
+
+http://104.248.55.73/
+http://104.248.55.73/tsugi
+
+
