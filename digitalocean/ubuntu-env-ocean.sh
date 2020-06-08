@@ -17,12 +17,12 @@ export TSUGI_SERVICENAME=Ocean
 export TSUGI_APPHOME=https://ocean.tsugicloud.org
 export TSUGI_WWWROOT=https://ocean.tsugicloud.org/tsugi
 
-export TSUGI_ADMINPW=oceans_ie949e8_42
+export TSUGI_ADMINPW=oceans_du4rej8_42
 
 # Dev / demo instances have a built-in MySQL server installed and configured
-export MYSQL_ROOT_PASSWORD=oceans_3ds7s91_42
+export MYSQL_ROOT_PASSWORD=oceans_jds843l_42
 export TSUGI_USER=oceans_user
-export TSUGI_PASSWORD=oceans_94ds932_42
+export TSUGI_PASSWORD=oceans_328eru7_42
 
 # Controls the host name that Apache reports - /etc/apache2/sites-available/000-default.conf
 # Important when getting a LetsEncrypt certificate
