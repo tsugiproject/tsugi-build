@@ -26,12 +26,14 @@ Creating the Necessary Services and Building the User Data
 Take a look at the `user_data_sample.sh` file - make your own copy of it.  Once you edit it
 do not check it into a public repo.
 
-Make an Aurora instance.  As you create the instance, you set up the master user
+Make an Aurora instance.
+(<a href="images/01-aurora-tsugi-serverless.png" target="_blank">Example</a>)
+As you create the instance, you set up the master user
 name and password (effectively the MySQL root account). When this is done, you
 will want to log into an EC2 instance that is in the VPC and run the following
 commands to create the table and sub-account:
 
-    mysql -h tsugi-serverless.cluster-ce43983889mk.us-east-2.rds.amazonaws.com -u tsugi_root_account -p
+    mysql -h tsugi-serverless.cluster-ce43mk.us-east-2.rds.amazonaws.com -u tsugi_root_account -p
     (Enter the master password you created)
     CREATE DATABASE apps_db DEFAULT CHARACTER SET utf8;
     GRANT ALL ON apps_db.* TO 'apps_db_user'@'172.%' IDENTIFIED BY 'APPS_PW_8973498';
@@ -45,7 +47,9 @@ sample `user_data.sh` file in this folder - it has commands like:
 
 Since you do not want store database blobs in the database and you do not want to run your
 EC2 instances out of disk and because you might make an autoscaling groups right away or later,
-make an EFS volume that can be mounted on your EC2 instance:
+make an EFS volume 
+(<a href="images/01-efs-config.png" target="_blank">Example</a>)
+that can be mounted on your EC2 instance:
 
     AWS-> EFS -> File Systems
     Create New File System
@@ -56,10 +60,15 @@ Put the hostname of your newly minted EFS volume in your `user_data.sh` as follo
 
     export TSUGI_NFS_VOLUME=fs-439fd792.efs.us-east-2.amazonaws.com
 
-Make a single-node ElasticCache / Memcache server. I use a t2.small and it has plenty of power
-and memory since PHP sessions in Tsugi are pretty small.  Tsugi does not yet understand a cluster
+Make a single-node ElasticCache / Memcache server. 
+(<a href="images/01-memcache-config.png" target="_blank">Example</a>)
+I use a t2.small and it has plenty of power
+and memory since PHP sessions in Tsugi are pretty small.  
+Tsugi does not yet understand a cluster
 of memcache servers - so just make one of the correct size.  Watch things like free memory
-on a Cloudwatch dashboard - you will likely find that it is very relaxed and nowhere
+on the dashboard 
+(<a href="images/02-memcache-stats.png" target="_blank">Example</a>) - you
+will likely find that it is very relaxed and nowhere
 near running out of memory.  Configure in your `user_data.sh` as follows:
 
     export TSUGI_MEMCACHED=tsugi-memcache.9f8gf8.cfg.use2.cache.amazonaws.com:11211
@@ -116,7 +125,8 @@ one of the official AMIs (if we make them available).
 **Step 1: Choose an Amazon Machine Image (AMI)**
 
 _Using a Public AMI_ - Select "Community APIs" and search for "tsugi-php-prod"
-and pick the latest version. (<a href="images/01-tsugi-prod-community-ami.png" target="_blank">Example</a>)
+and pick the latest version.
+(<a href="images/01-tsugi-prod-community-ami.png" target="_blank">Example</a>)
 
 _Using your AMI_ - Select "My AMIs", find your AMI and select it.
 
