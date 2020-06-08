@@ -38,7 +38,6 @@ unzip phpMyAdmin-4.7.9-all-languages.zip
 mv phpMyAdmin-4.7.9-all-languages /var/www/html/phpMyAdmin
 rm phpMyAdmin-4.7.9-all-languages.zip
 
-
 # if COMPLETE
 fi
 
