@@ -15,7 +15,7 @@ of a bare ubuntu distribution to prepare the instance to
 run Tsugi [ubuntu README](ubuntu/README.md)
 
 * How build an Amazon EC2 instance of Tsugi for scalable and hardened
-production using Aurora Serverless, ELasticache, Simple Email
+production using Aurora Serverless, Elasticache, Simple Email
 Service, and Elastic File System, Load Balancing, and Auto Scaling
 Groups [AMI README](ami/README.md).  You can use the `tsugi-public-prod`
 Community AMIs or build your own AMI [AMI BUILD README](ami/README-build.md).
