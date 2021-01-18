@@ -193,9 +193,12 @@ First make a Launch Configuration exactly like spinning spinning up an EC2 insta
 an autoscaling group that uses that launch configuration.  You can't edit a Launch Configuration
 but you can copy a Launch Config and make a new one to tweak.
 
-A good testing trick as you make and test new launch configurations is to edit the ASG and
-switch from desired=1, min=1, max=1 and desired=0, min=0, max=0 to bring the instances up and
-down.
+Once you have a new launch configuration, go into your Target Group and edit it to point to the
+new launch configuration.   Then go into Auto Scaling Group -> Instance Management and detatch
+instances running the old configuration and have Amazon build a replacement instance.  The replacement
+instances should come up with the new configuration.
+
+You can ssh into those new instances to poke around and verify things like PHP version, etc.
 
 References
 ----------
