@@ -18,7 +18,7 @@ run Tsugi [ubuntu README](ubuntu/README.md)
 production using Aurora Serverless, Elasticache, Simple Email
 Service, and Elastic File System, Load Balancing, and Auto Scaling
 Groups [AMI README](ami/README.md).  You can use the `tsugi-public-prod`
-Community AMIs or build your own AMI [AMI BUILD README](ami/README-build.md).
+Community AMIs or build your own AMI [AMI BUILD README](ami/README-BUILD.md).
 
 * Dockerfiles that produce docker images that can be used for
 development, testing, docker swarm, or
