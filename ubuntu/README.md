@@ -43,7 +43,7 @@ Ubuntu Setup
 
 After you have an Ubuntu and are logged in as root we start with the basics:
 
-    apt-get update
+    apt update
     apt-get install -y git vim
 
 Then check out this build repository:

@@ -56,7 +56,7 @@ To test the ami scripts in a docker container so you can start over and over:
 
 Then in the docker:
 
-    apt-get update
+    apt update
     apt-get install -y git
     apt-get install -y vim
     git config user.name "Charles R. Severance"

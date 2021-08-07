@@ -1,7 +1,7 @@
 export DEBIAN_FRONTEND=noninteractive
 export LC_ALL=C.UTF-8
 echo ======= Update 1
-apt-get update
+apt update
 echo ======= Install MariaDB
 apt-get -y install mariadb-server 
 echo ======= Cleanup Starting

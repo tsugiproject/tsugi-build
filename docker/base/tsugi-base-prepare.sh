@@ -4,13 +4,16 @@ export LC_ALL=C.UTF-8
 locale -a
 env
 echo ======= Update 1
-apt-get update
+apt update
 echo ======= Upgrade
-apt-get -y upgrade
+apt upgrade
 apt-get install -y build-essential
 apt-get install -y software-properties-common
 apt-get install -y byobu curl git htop man unzip vim wget
 apt-get install -y apt-utils 
+apt-get install -y mysql-client-8.0
+apt-get install -y nfs-common
+apt-get install -y mariadb-client
 if [ ! -f "/usr/bin/crontab" ]; then
     apt-get install -y cron 
 fi
@@ -31,9 +34,6 @@ apt-get install -y php8.0-mbstring php8.0-zip php8.0-xml php8.0-gd
 apt-get install -y php8.0-apcu
 apt-get install -y php8.0-intl
 apt-get install -y php8.0-memcached php8.0-memcache
-apt-get install -y mysql-client-8.0
-apt-get install -y mariadb-client
-apt-get install -y nfs-common
 apt-get install -y certbot python-certbot-apache
 a2enmod -q rewrite dir expires headers
 phpenmod mysqlnd pdo_mysql intl
