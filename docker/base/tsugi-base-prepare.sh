@@ -17,20 +17,21 @@ fi
 apt-get install -y ca-certificates
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4F4EA0AAE5267A6C
 echo ======= Update 2
-apt-get update
+apt update
 add-apt-repository -y ppa:ondrej/php
 add-apt-repository -y ppa:ondrej/apache2
 # https://certbot.eff.org/lets-encrypt/ubuntubionic-apache
 add-apt-repository -y universe
-add-apt-repository -y ppa:certbot/certbot
-apt-get update
+add-apt-repository -y -r ppa:certbot/certbot
+apt update
 apt-get install -y apache2
 apt-get install -y php8.0
 apt-get install -y libapache2-mod-php8.0 php8.0-mysql php8.0-curl php8.0-json
 apt-get install -y php8.0-mbstring php8.0-zip php8.0-xml php8.0-gd
-apt-get install -y php8.0-apc
+apt-get install -y php8.0-apcu
 apt-get install -y php8.0-intl
-apt-get install -y php-memcached php-memcache
+apt-get install -y php8.0-memcached php8.0-memcache
+apt-get install -y mysql-client-8.0
 apt-get install -y mariadb-client
 apt-get install -y nfs-common
 apt-get install -y certbot python-certbot-apache
