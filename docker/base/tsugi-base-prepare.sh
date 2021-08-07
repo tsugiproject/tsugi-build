@@ -25,17 +25,22 @@ add-apt-repository -y universe
 add-apt-repository -y ppa:certbot/certbot
 apt-get update
 apt-get install -y apache2
-apt-get install -y php7.3
-apt-get install -y libapache2-mod-php7.3 php7.3-mysql php7.3-curl php7.3-json
-apt-get install -y php7.3-mbstring php7.3-zip php7.3-xml php7.3-gd
-apt-get install -y php7.3-apc
-apt-get install -y php7.3-intl
+apt-get install -y php8.0
+apt-get install -y libapache2-mod-php8.0 php8.0-mysql php8.0-curl php8.0-json
+apt-get install -y php8.0-mbstring php8.0-zip php8.0-xml php8.0-gd
+apt-get install -y php8.0-apc
+apt-get install -y php8.0-intl
 apt-get install -y php-memcached php-memcache
 apt-get install -y mysql-client
 apt-get install -y nfs-common
 apt-get install -y certbot python-certbot-apache
 a2enmod -q rewrite dir expires headers
 phpenmod mysqlnd pdo_mysql intl
+echo ======= Installing Node and Friends
+apt-get install -y nodejs
+node --version
+apt-get install -y npm
+npm --version
 echo ======= Installing Postfix
 echo "postfix postfix/mailname string example.com" | debconf-set-selections
 echo "postfix postfix/main_mailer_type string 'Internet Site'" | debconf-set-selections

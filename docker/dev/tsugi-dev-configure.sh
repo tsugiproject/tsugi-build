@@ -34,9 +34,9 @@ bash /root/tsugi-build/common/tsugi-common-configure.sh
 echo "Installing phpMyAdmin"
 rm -rf /var/www/html/phpMyAdmin
 cd /root
-unzip phpMyAdmin-4.7.9-all-languages.zip
-mv phpMyAdmin-4.7.9-all-languages /var/www/html/phpMyAdmin
-rm phpMyAdmin-4.7.9-all-languages.zip
+unzip phpMyAdmin-5.1.1-all-languages.zip
+mv phpMyAdmin-5.1.1-all-languages /var/www/html/phpMyAdmin
+rm phpMyAdmin-5.1.1-all-languages.zip
 
 # if COMPLETE
 fi

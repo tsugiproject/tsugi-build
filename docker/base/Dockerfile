@@ -9,7 +9,7 @@
 # docker image rm tsugi_dev:latest tsugi_mysql:latest tsugi_base:latest
 
 # Pull base image.
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 COPY tsugi-base-configure.sh /usr/local/bin/
 COPY tsugi-base-prepare.sh /usr/local/bin/

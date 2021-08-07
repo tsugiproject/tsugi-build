@@ -17,7 +17,7 @@ with all of the pieces running on one server.
     tsugi_dev           latest              116d2bf50c4e        2 minutes ago       674MB
     tsugi_mysql         latest              90f8d82f7070        2 minutes ago       674MB
     tsugi_base          latest              b7199f92080c        3 minutes ago       585MB
-    ubuntu              14.04               a35e70164dfb        13 days ago         222MB
+    ubuntu              20.04               a35e70164dfb        13 days ago         222MB
 
     $ docker run -p 8080:80 -e TSUGI_SERVICENAME=TSFUN -e MYSQL_ROOT_PASSWORD=secret --name ubuntu -dit tsugi_dev:latest
 
@@ -51,7 +51,7 @@ To build one image
 
 To test the ami scripts in a docker container so you can start over and over:
 
-    docker run -p 8080:80 -p 3306:3306 --name ubuntu -dit ubuntu:18.04
+    docker run -p 8080:80 -p 3306:3306 --name ubuntu -dit ubuntu:20.04
     docker exec -it ubuntu bash
 
 Then in the docker:

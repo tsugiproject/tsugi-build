@@ -7,8 +7,8 @@ Go to EC2 Dashboard - Launch new Instance and start building an instance.
 Step 1: Choose an Amazon Machine Image (AMI)
 
     Select "Community AMIs"
-    Search for "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server" find something like:
-    ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-20200408 - ami-07c1207a9d40bc3bd
+    Search for "ubuntu/images/hvm-ssd/ubuntu-bionic-20.04-amd64-server" find something like:
+    ubuntu/images/hvm-ssd/ubuntu-bionic-20.04-amd64-server-20200408 - ami-07c1207a9d40bc3bd
 
 Step 2: Choose an Instance Type - t2.micro
 
@@ -42,16 +42,16 @@ run the following sequence:
 Make an AMI by taking a snapshot of your EC2 instance once it is powered off.
 Name it something like:
 
-    tsugi-php-prod-2020-06-07-ubuntu18.04-php7.3
+    tsugi-php-prod-2020-06-07-ubuntu20.04-php8.0
 
-    tsugi-php-demo-2020-06-07-ubuntu18.04-php7.3
+    tsugi-php-demo-2020-06-07-ubuntu20.04-php8.0
 
 Give it a description in the AMI detail screen once it is created - it
 is the one thing you can edit.
 
-    This is a production build of Tsugi with Ubuntu 18.04 and PHP 7.3.
+    This is a production build of Tsugi with Ubuntu 20.04 and PHP 8.0.
 
-    This is a dev/demo build of Tsugi with Ubuntu 18.04 and PHP 7.3.
+    This is a dev/demo build of Tsugi with Ubuntu 20.04 and PHP 8.0.
 
 When you build a server based on an AMI, the `configure` scripts 
 check out the latest version of Tsugi so you can keep using the same AMI
