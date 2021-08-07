@@ -15,7 +15,7 @@ if [ ! -f "/usr/bin/crontab" ]; then
     apt-get install -y cron 
 fi
 apt-get install -y ca-certificates
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4F4EA0AAE5267A6C
+## apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4F4EA0AAE5267A6C
 echo ======= Update 2
 apt-get update
 ## add-apt-repository -y ppa:ondrej/php
