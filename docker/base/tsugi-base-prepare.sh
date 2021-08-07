@@ -29,7 +29,7 @@ add-apt-repository -y -r ppa:certbot/certbot
 apt update
 apt-get install -y apache2
 apt-get install -y php8.0
-apt-get install -y libapache2-mod-php8.0 php8.0-mysql php8.0-curl php8.0-json
+apt-get install -y libapache2-mod-php8.0 php8.0-mysql php8.0-curl
 apt-get install -y php8.0-mbstring php8.0-zip php8.0-xml php8.0-gd
 apt-get install -y php8.0-apcu
 apt-get install -y php8.0-intl
