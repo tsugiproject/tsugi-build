@@ -13,7 +13,7 @@ apt-get install -y byobu curl git htop man unzip vim wget
 apt-get install -y apt-utils 
 apt-get install -y mysql-client-8.0
 apt-get install -y nfs-common
-apt-get install -y mariadb-client
+## apt-get install -y mariadb-client ## Not needed
 if [ ! -f "/usr/bin/crontab" ]; then
     apt-get install -y cron 
 fi
