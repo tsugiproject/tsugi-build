@@ -56,7 +56,7 @@ git pull
 # Here you can add commands that will run once when the system is being configured after
 # being created from the AMI.
 
-# apt-get update
+# apt update
 # apt-get -y install zip
 # which zip
 

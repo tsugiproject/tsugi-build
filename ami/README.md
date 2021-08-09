@@ -127,6 +127,8 @@ one of the official AMIs (if we make them available).
 _Using a Public AMI_ - Select "Community APIs" and search for "tsugi-php-prod"
 and pick the latest version.
 (<a href="images/01-tsugi-prod-community-ami.png" target="_blank">Example</a>)
+These AMIs are produced using the scripts
+https://github.com/tsugicloud/ami-sql
 
 _Using your AMI_ - Select "My AMIs", find your AMI and select it.
 
@@ -184,7 +186,7 @@ to that IP address
 Making an Autoscaling Group Using the AMI
 -----------------------------------------
 
-It is good for testing to intiially make your Launch Configuration and AutoScaling Group without
+It is good for testing to initially make your Launch Configuration and AutoScaling Group without
 automatically adding them to your Target Group for your ELB.  This way you can get things
 right and verify by going to the IP address in the web browser and SSHing in to look around
 before you add it to the Target Group.

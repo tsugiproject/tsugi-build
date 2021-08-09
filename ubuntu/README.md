@@ -2,7 +2,7 @@ Bringing Tsugi Up on Ubuntu
 ===========================
 
 This documents how to manually build a Tsugi developer or production server
-on an ubuntu 18.04 instance.  You have to decide what kind of instance you
+on an ubuntu 20.04 instance.  You have to decide what kind of instance you
 want:
 
 * A demo / developer instance installs MySQL locally in the instance.  This
@@ -15,7 +15,7 @@ Memcache, EFS, etc.
 Doing this on an EC2
 --------------------
 
-Create your instance from an Ubuntu `18_04` or later AMI and log in to your instance.
+Create your instance from an Ubuntu `20_04` or later AMI and log in to your instance.
 
 Testing the non-Docker build using a Docker container
 -----------------------------------------------------
@@ -29,7 +29,7 @@ To be clear we are not *making* docker images in this process - instead we
 are *using* docker to give us a fresh ubuntu install so we can test the non-docker
 build processes - make a container:
 
-    docker run -p 8080:80 -p 3308:3306 --name ubuntu -dit ubuntu:18.04
+    docker run -p 8080:80 -p 3308:3306 --name ubuntu -dit ubuntu:20.04
 
 You can pick ports other than 8080 and 3308 to access your web server and MySQL
 server running inside of docker.
@@ -43,7 +43,7 @@ Ubuntu Setup
 
 After you have an Ubuntu and are logged in as root we start with the basics:
 
-    apt-get update
+    apt update
     apt-get install -y git vim
 
 Then check out this build repository:

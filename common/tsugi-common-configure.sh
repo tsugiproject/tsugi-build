@@ -17,7 +17,7 @@ fi
 EOF
 fi
 
-apt-get update
+apt update
 
 # Move this to pre eventually - may not need this
 # apt install debconf-utils
