@@ -1,6 +1,7 @@
 
-# Another repo designed to only build an AMI using similar approaches is available in
-# https://github.com/tsugicloud/ami-sql/blob/master/pre-ami.sh
+# This file lives in two repos
+# https://github.com/tsugicloud/ami-sql/blob/master/tsugi-base-software.sh
+# https://github.com/tsugiproject/tsugi-build/blob/master/docker/base/tsugi-base-software.sh
 
 sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list
 export DEBIAN_FRONTEND=noninteractive
@@ -44,6 +45,11 @@ echo ======= Installing Node and Friends
 apt-get install -y nodejs
 node --version
 apt-get install -y npm
+# https://phoenixnap.com/kb/update-node-js-version
+npm install -g n
+PATH="$PATH"
+n stable
+PATH="$PATH"
 
 npm --version
 echo === Installing certbot - https://certbot.eff.org/lets-encrypt/ubuntufocal-apache
