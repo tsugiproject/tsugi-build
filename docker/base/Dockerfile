@@ -11,9 +11,9 @@
 # Pull base image.
 FROM ubuntu:20.04
 
-COPY tsugi-base-configure.sh /usr/local/bin/
-COPY tsugi-base-prepare.sh /usr/local/bin/
 COPY tsugi-base-software.sh /usr/local/bin/
+COPY tsugi-base-prepare.sh /usr/local/bin/
+COPY tsugi-base-configure.sh /usr/local/bin/
 
 # Install.
 RUN bash /usr/local/bin/tsugi-base-software.sh
