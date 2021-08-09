@@ -45,6 +45,11 @@ Cleaning up
     docker container prune
     docker image prune
 
+Big clean up:
+
+    docker rmi $(docker images -a -q)
+    docker image prune
+
 To build one image
 
     docker build --tag tsugi_base .

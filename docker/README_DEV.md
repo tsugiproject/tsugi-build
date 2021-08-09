@@ -16,7 +16,7 @@ group
 
 In order to accomplish those reuses, our Dockerfiles are kept to
 an absolute minimum and all of the clever work is done in the 
-`tusgi-prepare` and `tsugi-startup` scripts.
+`tusgi-prepare`, `tsugi-software`, and `tsugi-startup` scripts.
 
 The order of the steps is:
 
