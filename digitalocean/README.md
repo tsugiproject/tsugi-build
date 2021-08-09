@@ -57,7 +57,7 @@ somewhere secure outside of the server.
     source ubuntu-env.sh
     bash /root/tsugi-build/docker/dev/tsugi-dev-configure.sh return
 
-Don't worry - we are not using docuker - the script we need is just shared
+Don't worry - we are not using docker - the script we need is just shared
 between the docker and non-docker processes.
 When this script finishes your server should be up and running try these urls:
 
