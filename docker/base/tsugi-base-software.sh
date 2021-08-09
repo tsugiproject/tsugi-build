@@ -53,5 +53,12 @@ snap refresh core
 snap install --classic certbot
 ln -s /snap/bin/certbot /usr/bin/certbot
 
+echo === Installed versions
+echo -n "Node " ; node --version
+echo -n "npm " ; npm --version
+php --version
+mysql --version
+lsb_release -a
+
 # Cleanup is outside this file
 
