@@ -1,5 +1,5 @@
 
-# Tsugi plus mysql
+# Tsugi plus mariadb
 # docker build --tag tsugi_dev .
 # docker run -p 8080:80 -p 3306:3306 -e TSUGI_SERVICENAME=TSFUN -dit tsugi_dev:latest
 
@@ -12,7 +12,7 @@
 # docker container prune
 # docker image rm tsugi_dev:latest
 
-FROM tsugi_mysql:latest
+FROM tsugi_mariadb:latest
 
 COPY tsugi-dev-configure.sh /usr/local/bin
 

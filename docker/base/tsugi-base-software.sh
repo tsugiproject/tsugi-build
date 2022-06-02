@@ -3,6 +3,12 @@
 # https://github.com/tsugicloud/ami-sql/blob/master/tsugi-base-software.sh
 # https://github.com/tsugiproject/tsugi-build/blob/master/docker/base/tsugi-base-software.sh
 
+# http://jpetazzo.github.io/2013/10/06/policy-rc-d-do-not-start-services-automatically/
+cat > /usr/sbin/policy-rc.d << EOF
+#!/bin/sh
+exit 0
+EOF
+
 sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list
 export DEBIAN_FRONTEND=noninteractive
 export LC_ALL=C.UTF-8
@@ -32,12 +38,12 @@ add-apt-repository -y ppa:ondrej/apache2
 add-apt-repository -y universe
 apt update
 apt-get install -y apache2
-apt-get install -y php8.0
-apt-get install -y libapache2-mod-php8.0 php8.0-mysql php8.0-curl
-apt-get install -y php8.0-mbstring php8.0-zip php8.0-xml php8.0-gd
-apt-get install -y php8.0-apcu
-apt-get install -y php8.0-intl
-apt-get install -y php8.0-memcached php8.0-memcache
+apt-get install -y php8.1
+apt-get install -y libapache2-mod-php8.1 php8.1-mysql php8.1-curl
+apt-get install -y php8.1-mbstring php8.1-zip php8.1-xml php8.1-gd
+apt-get install -y php8.1-apcu
+apt-get install -y php8.1-intl
+apt-get install -y php8.1-memcached php8.1-memcache
 a2enmod -q rewrite dir expires headers
 phpenmod mysqlnd pdo_mysql intl
 

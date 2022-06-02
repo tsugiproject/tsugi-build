@@ -1,6 +1,6 @@
 echo "Running dev Configure"
 
-bash /usr/local/bin/tsugi-mysql-configure.sh return
+bash /usr/local/bin/tsugi-mariadb-configure.sh return
 
 COMPLETE=/usr/local/bin/tsugi-dev-complete
 if [ -f "$COMPLETE" ]; then

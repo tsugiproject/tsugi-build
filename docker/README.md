@@ -13,11 +13,11 @@ with all of the pieces running on one server.
 
     $ docker images    (make sure they all build)
 
-    REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-    tsugi_dev           latest              116d2bf50c4e        2 minutes ago       674MB
-    tsugi_mysql         latest              90f8d82f7070        2 minutes ago       674MB
-    tsugi_base          latest              b7199f92080c        3 minutes ago       585MB
-    ubuntu              20.04               a35e70164dfb        13 days ago         222MB
+    REPOSITORY    TAG       IMAGE ID       CREATED          SIZE
+    tsugi_dev     latest    e0c605b62379   17 seconds ago   1.65GB
+    tsugi_mariadb latest    f28d5bb8e4e9   18 seconds ago   1.63GB
+    tsugi_prod    latest    07503b2e53cc   33 seconds ago   1.42GB
+    tsugi_base    latest    b678abc4b0b0   9 minutes ago    1.42GB
 
     $ docker run -p 8080:80 -e TSUGI_SERVICENAME=TSFUN -e MYSQL_ROOT_PASSWORD=secret --name ubuntu -dit tsugi_dev:latest
 
@@ -78,4 +78,10 @@ This does all of the docker stuff.  Then to bring it up / configure it:
     cp ami-env-dist.sh  ami-env.sh
     bash /usr/local/bin/tsugi-dev-startup.sh return
 
+
+Debugging commands
+------------------
+
+    service --status-all
+    service mariadb start
 

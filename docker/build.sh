@@ -14,8 +14,8 @@ cd base
 docker build --tag tsugi_base .
 cd ../prod
 docker build --tag tsugi_prod .
-cd ../mysql
-docker build --tag tsugi_mysql .
+cd ../mariadb
+docker build --tag tsugi_mariadb .
 cd ../dev
 docker build --tag tsugi_dev .
 
