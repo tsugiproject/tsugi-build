@@ -7,12 +7,17 @@ else
 
 # Save the Environment Variables for later cron jobs if we are starting from Docker
 if [ ! -f "/root/ubuntu-env.sh" ] ; then
+    echo "Creating /root/ubuntu-env.sh from docker variables"
+    env
     echo "# created from tsugi-base-configure.sh" > /root/ubuntu-env.sh
     env | sort | grep '^TSUGI' | sed 's/^/export /' >>  /root/ubuntu-env.sh
     env | sort | grep '^POSTFIX' | sed 's/^/export /' >>  /root/ubuntu-env.sh
     env | sort | grep '^MYSQL' | sed 's/^/export /' >>  /root/ubuntu-env.sh
     env | sort > /root/tsugi-env-raw-dump
 fi
+
+source /root/ubuntu-env.sh
+env
 
 # Sanity check in case Docker went wrong with freshly mounted html folder
 if [ -d "/var/www/html" ] ; then

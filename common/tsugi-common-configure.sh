@@ -3,6 +3,8 @@ echo "Running Tsugi common configure"
 echo Running tsugi-common `date "+%F-%T"`
 touch /tmp/tsugi-common-`date "+%F-%T"`
 
+source /root/ubuntu-env.sh
+
 echo "====== Environment variables"
 env | sort
 
@@ -68,11 +70,21 @@ if [ ! -d /efs/blobs ]; then
   mkdir /efs/blobs
 fi
 
+if [ ! -d /efs/sites ]; then
+  mkdir /efs/sites
+fi
+
+
 # This takes way too long...
 echo "Patching efs permissions"
 chown www-data:www-data /efs
 chown www-data:www-data /efs/*
 chown www-data:www-data /efs/*/*
+
+# Make git work from the browser
+cp /usr/bin/git /usr/local/bin/gitx
+chown www-data:www-data /usr/local/bin/gitx
+chmod a+s /usr/local/bin/gitx
 
 # Construct the web
 cd /var/www/html/
@@ -82,11 +94,6 @@ if [ -n "$MAIN_REDIRECT" ] ; then
   echo Redirecting top level path to $MAIN_REDIRECT
   cat << EOF > /var/www/html/.htaccess
 RedirectMatch ^/$ $MAIN_REDIRECT
-EOF
-  mkdir /var/www/html/mod
-  cat << EOF > /var/www/html/mod/config.php
-<?php
-require_once dirname(__DIR__)."/tsugi/config.php";
 EOF
 
 else
@@ -103,6 +110,13 @@ else
   cd ..
   rm -r site
 
+  mkdir /var/www/html/mod
+  cat << EOF > /var/www/html/mod/config.php
+<?php
+require_once dirname(__DIR__)."/tsugi/config.php";
+EOF
+
+
   # Sanity Check
   if [[ -d /var/www/html/.git ]] ; then
     echo Main site checkout looks good
@@ -110,53 +124,53 @@ else
     echo Main site checkout fail
     exit 1
   fi
-fi
 
-cd /var/www/html/
-git clone https://github.com/tsugiproject/tsugi.git
+  cd /var/www/html/
+  git clone https://github.com/tsugiproject/tsugi.git
 
-# Sanity Check
-if [[ -f /var/www/html/tsugi/admin/upgrade.php ]] ; then
-  echo Tsugi checkout looks good
-else
-  echo Tsugi checkout fail
-  exit 1
-fi
+  # Sanity Check
+  if [[ -f /var/www/html/tsugi/admin/upgrade.php ]] ; then
+    echo Tsugi checkout looks good
+  else
+    echo Tsugi checkout fail
+    exit 1
+  fi
 
-# Make sure FETCH_HEAD and ORIG_HEAD are created
-cd /var/www/html
-git pull
-cd /var/www/html/tsugi
-git pull
+  # Make sure FETCH_HEAD and ORIG_HEAD are created
+  cd /var/www/html
+  git pull
+  cd /var/www/html/tsugi
+  git pull
 
-# Fix the config.php file
-if [ ! -f /var/www/html/tsugi/config.php ] ; then
+  # Fix the config.php file
+  if [ ! -f /var/www/html/tsugi/config.php ] ; then
     echo Building config.php
     php /root/tsugi-build/common/fixconfig.php < /root/tsugi-build/common/config.php > /var/www/html/tsugi/config.php
+  fi
+
+  echo Re-starting Apache before running Tsugi scripts
+  /usr/sbin/apachectl restart
+
+  # Create/update the Tsugi database tables
+  cd /var/www/html/tsugi/admin
+  php upgrade.php
+
+  # Checkout necessary mods
+  cd /var/www/html/tsugi/admin/install
+  php update.php
+
+  # Patch permissions
+  chown -R www-data:www-data /var/www/html
+
+  # Create the tables
+  cd /var/www/html/tsugi/admin
+  php upgrade.php
+
 fi
 
-echo Re-starting Apache before running Tsugi scripts
-/usr/sbin/apachectl restart
-
-# Create/update the Tsugi database tables
-cd /var/www/html/tsugi/admin
-php upgrade.php
-
-# Make git work from the browser
-cp /usr/bin/git /usr/local/bin/gitx
-chown www-data:www-data /usr/local/bin/gitx
-chmod a+s /usr/local/bin/gitx
-
-# Checkout necessary mods
-cd /var/www/html/tsugi/admin/install
-php update.php
-
-# Patch permissions
-chown -R www-data:www-data /var/www/html
-
-# Create the tables
-cd /var/www/html/tsugi/admin
-php upgrade.php
+# Prepare for multi
+mkdir /var/www/sites
+chown -R www-data:www-data /var/www/sites
 
 echo ======= Cleanup Start
 df

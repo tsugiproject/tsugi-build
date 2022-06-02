@@ -1,9 +1,9 @@
 
-Making a CloudFlare Security Group in Amazon
+Making a Cloudflare Security Group in Amazon
 --------------------------------------------
 
 If you want to have solid DDOS protection, it is nice to block all direct
-traffic except SSH to the public IP addresses of youer EC2 instances.  CloudFlare
+traffic except SSH to the public IP addresses of youer EC2 instances.  Cloudflare
 gives you a list of the IP ranges at these URLs:
 
   https://www.cloudflare.com/ips-v4
@@ -11,7 +11,7 @@ gives you a list of the IP ranges at these URLs:
 
 These change very slowly.  From August 2018 (when I started using this technique)
 to June 2020 (when I am writing this documentation) there were *no* changes to 
-the CloudFlare IP ranges.  I include commands below to check if they have changed
+the Cloudflare IP ranges.  I include commands below to check if they have changed
 any time you like.  If you notice that they have changed - make sure to let
 the Tsugi devloper's list know because a lot of Tsugi servers might be partially
 off the air.
@@ -31,8 +31,8 @@ security group.
 Page Rules
 ----------
 
-You get three free page rules in CloudFlare - here are some recommended settings.
-We give extra protection to the admin URLs, and in effect turn off CloudFlare
+You get three free page rules in Cloudflare - here are some recommended settings.
+We give extra protection to the admin URLs, and in effect turn off Cloudflare
 for two pages that function like APIs.
 
     *.dj4e.com/tsugi/admin
@@ -53,9 +53,9 @@ Clearing Cache
 --------------
 
 If you have heavily cached URLs and want to change that content,
-you can log in and clear CloudFlare's entire cache of your site
-under 'Caching.  Clearing cache in CloudFlare is not too costly, 
-it just means CloudFlare will re-grab all those files once and
+you can log in and clear Cloudflare's entire cache of your site
+under 'Caching.  Clearing cache in Cloudflare is not too costly, 
+it just means Cloudflare will re-grab all those files once and
 start to cache them again.
 
 Of course, Cloudflare cannot convince browsers that think they have
@@ -67,7 +67,7 @@ browser, you might have to add a GET parameter to a URL like:
 
 Then you should force your browser to re-retrieve the file.   
 
-CloudFlare does not solve the "force all the browsers to reload
+Cloudflare does not solve the "force all the browsers to reload
 the new version" because it can't.   For that you still need to
 resort to tricks like GET parameters in static files in your markup.
 

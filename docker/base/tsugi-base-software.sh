@@ -3,11 +3,19 @@
 # https://github.com/tsugicloud/ami-sql/blob/master/tsugi-base-software.sh
 # https://github.com/tsugiproject/tsugi-build/blob/master/docker/base/tsugi-base-software.sh
 
+# http://jpetazzo.github.io/2013/10/06/policy-rc-d-do-not-start-services-automatically/
+cat > /usr/sbin/policy-rc.d << EOF
+#!/bin/sh
+exit 0
+EOF
+
 sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list
 export DEBIAN_FRONTEND=noninteractive
 export LC_ALL=C.UTF-8
 locale -a
 env
+
+TSUGI_PHP_VERSION=8.0
 
 echo ======= Update 1
 apt -y update
@@ -32,12 +40,12 @@ add-apt-repository -y ppa:ondrej/apache2
 add-apt-repository -y universe
 apt update
 apt-get install -y apache2
-apt-get install -y php8.0
-apt-get install -y libapache2-mod-php8.0 php8.0-mysql php8.0-curl
-apt-get install -y php8.0-mbstring php8.0-zip php8.0-xml php8.0-gd
-apt-get install -y php8.0-apcu
-apt-get install -y php8.0-intl
-apt-get install -y php8.0-memcached php8.0-memcache
+apt-get install -y php${TSUGI_PHP_VERSION}
+apt-get install -y libapache2-mod-php${TSUGI_PHP_VERSION} php${TSUGI_PHP_VERSION}-mysql php${TSUGI_PHP_VERSION}-curl
+apt-get install -y php${TSUGI_PHP_VERSION}-mbstring php${TSUGI_PHP_VERSION}-zip php${TSUGI_PHP_VERSION}-xml php${TSUGI_PHP_VERSION}-gd
+apt-get install -y php${TSUGI_PHP_VERSION}-apcu
+apt-get install -y php${TSUGI_PHP_VERSION}-intl
+apt-get install -y php${TSUGI_PHP_VERSION}-memcached php${TSUGI_PHP_VERSION}-memcache
 a2enmod -q rewrite dir expires headers
 phpenmod mysqlnd pdo_mysql intl
 

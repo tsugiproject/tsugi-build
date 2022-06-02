@@ -12,13 +12,21 @@ environment.
 
 * More detailed documentation on how these scripts can be run inside
 of a bare ubuntu distribution to prepare the instance to
-run Tsugi [ubuntu README](ubuntu/README.md)
+run Tsugi [ubuntu README](ubuntu/README.md).  
+
+* You can also make a multi-virtual-host environment 
+at [virtual host README](vhost/README.md).
+The vhost process is manual and easily adopted to AWS, Digital Ocean,
+etc.
 
 * How build an Amazon EC2 instance of Tsugi for scalable and hardened
 production using Aurora Serverless, Elasticache, Simple Email
 Service, and Elastic File System, Load Balancing, and Auto Scaling
 Groups [AMI README](ami/README.md).  You can use the `tsugi-public-prod`
 Community AMIs or build your own AMI [AMI BUILD README](ami/README-BUILD.md).
+
+* How to build a multi-virtual hosted envionment where you can host several
+independent domains on one server with Apache Virtual hosting.
 
 * Dockerfiles that produce docker images that can be used for
 development, testing, docker swarm, or

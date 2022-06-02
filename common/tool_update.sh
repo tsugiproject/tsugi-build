@@ -1,5 +1,9 @@
 #! /bin/bash
 
-cd /var/www/html/tsugi/admin/install
-php update.php
+for f in /var/www/html /var/www/sites/*
+do
+    echo Tool update $f
+    cd $f/tsugi/admin/install
+    php update.php
+done
 
