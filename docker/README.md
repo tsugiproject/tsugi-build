@@ -13,11 +13,12 @@ with all of the pieces running on one server.
 
     $ docker images    (make sure they all build)
 
-    REPOSITORY    TAG       IMAGE ID       CREATED          SIZE
-    tsugi_dev     latest    e0c605b62379   17 seconds ago   1.65GB
-    tsugi_mariadb latest    f28d5bb8e4e9   18 seconds ago   1.63GB
-    tsugi_prod    latest    07503b2e53cc   33 seconds ago   1.42GB
-    tsugi_base    latest    b678abc4b0b0   9 minutes ago    1.42GB
+    REPOSITORY      TAG       IMAGE ID       CREATED          SIZE
+    tsugi_dev       latest    35d920ca068f   9 seconds ago    251MB
+    tsugi_mariadb   latest    da588c6ad209   11 seconds ago   236MB
+    tsugi_prod      latest    535c90a4342b   33 seconds ago   77.8MB
+    tsugi_base      latest    7029e0abdbba   4 minutes ago    77.8MB
+    tsugi_ubuntu    latest    7029e0abdbba   4 minutes ago    77.8MB
 
     $ docker run -p 8080:80 -e TSUGI_SERVICENAME=TSFUN -e MYSQL_ROOT_PASSWORD=secret --name ubuntu -dit tsugi_dev:latest
 
