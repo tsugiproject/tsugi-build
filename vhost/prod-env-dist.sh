@@ -2,6 +2,8 @@
 
 # Put this in /root/ubuntu-env.sh
 
+echo ================= PLEASE PUT REAL DATA IN THIS FILE AND DELETE THIS LINE :)
+
 export MAIN_REDIRECT=https://www.tsugi.org/
 export TSUGI_NFS_VOLUME=fs-7e3b4987.efs.us-east-2.amazonaws.com
 

@@ -32,10 +32,21 @@ On AWS you can use EFS which is efficient and convienent.
 Building your vhost Server
 --------------------------
 
-    # Configure your server, and log in as root
+This is a sample setup for one of my AWS servers:
+
+    t2.small
+
+    Canonical, Ubuntu, 20.04 LTS, amd64 focal image build on 2022-12-12 ami-0cbea92f2377277a4
+
+    Start in the "default" security group - move to "cloudflare-80" security group
+    after initial testing is complete
+
+Once you have a server and log in as root or ubuntu and  `sudo bash`
+
+    # Not needed for 20.04.05 - check if you already have git and vim
     apt update ; apt-get install -y git vim
 
-    cd /home/ubuntu
+    cd /root
     git clone https://github.com/tsugiproject/tsugi-build.git
 
     cd tsugi-build
@@ -53,7 +64,7 @@ no sites in it at all.  Site come later
     source /root/ubuntu-env.sh
 
     # Build the /var/www/html environment
-    source /usr/local/bin/tsugi-prod-configure.sh
+    source /usr/local/bin/tsugi-prod-configure.sh return
 
 
 Make a copy of kubernetes.docker.internal.sh and adapt
