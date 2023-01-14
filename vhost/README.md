@@ -51,37 +51,35 @@ Once you have a server and log in as root or ubuntu and  `sudo bash`
 
     cd tsugi-build
     # git checkout ubuntu-20-php-8-1
-    git config user.name "Charles R. Severance"
-    git config user.email "csev@umich.edu"
 
     bash ubuntu/build-prod.sh
 
-Take the `prod-env-dist.sh file` from this folder, adapt it for your needs
+Copy the `prod-env-dist.sh file` from this folder, adapt it for your needs
 and put it into `/root/ubuntu-env.sh`.  This is very minimal and has
-no sites in it at all.  Site come later
+no sites in it at all.  Sites and Tsugi are added later.
 
-    cp setup_prod.sh /root/ubuntu-env.sh
+    cp vhost/prod-env-dist.sh /root/ubuntu-env.sh
+    # Edit /root/ubuntu-env.sh and put in real data!
     source /root/ubuntu-env.sh
 
     # Build the /var/www/html environment
     source /usr/local/bin/tsugi-prod-configure.sh return
 
-
 Make a copy of kubernetes.docker.internal.sh and adapt
-it for wach of your vhosts - this is some shell variables
-controlling install/setup and your config.php
-upload these files to the server and execute them one
-at a time.  Suggestion: Name them based on the domain of each
-vhost so you can keep them apart
+it for each of your vhosts - you should choose a name for each
+configuration based on the virtual host domain so you can keep things
+reasonable.  This contains some shell variables
+used to set up the virtual host and configure your `config.php`.
+Upload these files to the server and execute them one at a time.
 
-    bash /root/sites/ihts.pr4e.com.sh
     bash /root/sites/test.tsugicloud.org.sh
+    bash /root/sites/ihts.pr4e.com.sh
 
 Once DNS is properly pointing at this server,
 you should be able to test urls like:
 
-    http://ihts.pr4e.com
     http://test.tsugicloud.org
+    http://ihts.pr4e.com
 
 Once these are setup - you can use something like LetsEncrypt
 to promote them to https, or you can leave them http and
@@ -107,7 +105,7 @@ in the Apache configuration folder:
     -rw-r--r-- 1 root root 1662 Jan 14 16:27 test.tsugicloud.org.conf
     -rw-r--r-- 1 root root  354 Jan 14 16:27 test.tsugicloud.org.config.php
 
-Not that both the Apache configuration *and* the Tsugi configuration
+Note that both the Apache configuration *and* the Tsugi configuration
 for the vhost are here.  The Tsugi `/var/sites/ihts.pr4e.com/tsugi/config.php`
 includes the `config.php` in this Apache configuration folder.
 
