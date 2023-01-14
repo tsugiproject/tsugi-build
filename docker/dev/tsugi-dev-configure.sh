@@ -1,11 +1,14 @@
 echo "Running dev Configure"
 
-bash /usr/local/bin/tsugi-mysql-configure.sh return
+bash /usr/local/bin/tsugi-mariadb-configure.sh return
 
 COMPLETE=/usr/local/bin/tsugi-dev-complete
 if [ -f "$COMPLETE" ]; then
     echo "Dev configure already has run"
 else
+
+source /root/ubuntu-env.sh
+env
 
 if [ -z "$MYSQL_ROOT_PASSWORD" ]; then
 MYSQL_ROOT_PASSWORD=root
@@ -37,6 +40,8 @@ cd /root
 unzip phpMyAdmin-5.1.1-all-languages.zip
 mv phpMyAdmin-5.1.1-all-languages /var/www/html/phpMyAdmin
 rm phpMyAdmin-5.1.1-all-languages.zip
+
+chown -R www-data.www-data /var/www/html/
 
 # if COMPLETE
 fi

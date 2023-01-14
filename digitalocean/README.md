@@ -79,7 +79,7 @@ Connecting to a Domain Name
 ---------------------------
 
 To connect this with a domain name, you can either route your domain to the IP
-address or use __CloudFlare__.   CloudFlare is a great way to go as it solves
+address or use __Cloudflare__.   Cloudflare is a great way to go as it solves
 several problems at once:
 
 * It gives you an https certificate automatically.
@@ -88,13 +88,13 @@ several problems at once:
 
 * It adds a caching layer for things like static assets
 
-If you want to use CloudFlare, see the instructions in
-[../cloudflare/README.md](CloudFlare folder).
+If you want to use Cloudflare, see the instructions in
+[../cloudflare/README.md](Cloudflare folder).
 
 Getting a LetsEncrypt Certificate
 ---------------------------------
 
-If you are not using CloudFlare, you will need to update your DNS entry
+If you are not using Cloudflare, you will need to update your DNS entry
 for the server to point to the IP address of your DigitalOcean instance.
 It takes a while for DNS to propagate so you should wait before proceeding
 until you can access the server by domain name instead of IP address:
@@ -128,7 +128,7 @@ https://ocean.tsugicloud.org/ (<a href="images/07-server-up-https.png" target="_
 Viola!  
 
 You will have to set up the auto-renewal process for your certificate using cron.  See
-the LetsEncrypt documentation for details.  All the software you need ot renew is
+the LetsEncrypt documentation for details.  All the software you need to renew is
 already installed.
 
 

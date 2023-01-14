@@ -55,10 +55,6 @@ $CFG->timezone = 'America/New_York';
 // Also copy upgrading-dist.php to upgrading.php and add your message
 $CFG->upgrading = false;
 
-$CFG->dynamodb_key = false; // 'AKIISDIUSDOUISDHFBUQ';
-$CFG->dynamodb_secret = false; // 'zFKsdkjhkjskhjSAKJHsakjhSAKJHakjhdsasYaZ';
-$CFG->dynamodb_region = false; // 'us-east-2'
-
 $CFG->expire_pii_days = 150;  // Three months
 $CFG->expire_user_days = 400;  // One year
 $CFG->expire_context_days = 600; // 1.5 Years
@@ -87,33 +83,5 @@ if ( isset($CFG->memcached) && strlen($CFG->memcached) > 0 ) {
     ini_set('session.save_path', $CFG->memcached);
     // https://github.com/php-memcached-dev/php-memcached/issues/269
     ini_set('memcached.sess_locking', '0');
-}
-
-// http://docs.aws.amazon.com/aws-sdk-php/v2/guide/feature-dynamodb-session-handler.html
-if ( isset($CFG->dynamodb_key) && isset($CFG->dynamodb_secret) && isset($CFG->dynamodb_region) &&
-     strlen($CFG->dynamodb_key) > 0 && strlen($CFG->dynamodb_secret) > 0 &&
-     strlen($CFG->dynamodb_region) > 0 ) {
-    $CFG->sessions_in_dynamodb = true;
-    if ( $CFG->sessions_in_dynamodb ) {
-        $dynamoDb = \Aws\DynamoDb\DynamoDbClient::factory(
-            array('region' => $CFG->dynamodb_region,
-            'credentials' => array(
-                'key'    => $CFG->dynamodb_key,
-                'secret' => $CFG->dynamodb_secret
-            ),
-            'version' => 'latest'));
-        $sessionHandler = $dynamoDb->registerSessionHandler(array(
-            'table_name'               => 'sessions',
-            'hash_key'                 => 'id',
-            'session_lifetime'         => 3600,
-            'consistent_read'          => true,
-            'locking_strategy'         => null,
-            'automatic_gc'             => 0,
-            'gc_batch_size'            => 50,
-            'max_lock_wait_time'       => 15,
-            'min_lock_retry_microtime' => 5000,
-            'max_lock_retry_microtime' => 50000,
-        ));
-    }
 }
 

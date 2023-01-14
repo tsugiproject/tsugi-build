@@ -1,7 +1,11 @@
 #! /bin/bash
 
-cd /var/www/html
-if [ -d .git ] ; then
-  git pull
-fi
+for f in /var/www/html /var/www/sites/*
+do
+    echo Main update $f
+    cd $f
+    if [ -d .git ] ; then
+       git pull
+    fi
+done
 

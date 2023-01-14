@@ -11,14 +11,14 @@ for quite a while.  You only need to make a new AMI if
 you want a new version of PHP or some other software component or the `prepare`
 scripts need to be changed.
 
-CloudFlare
+Cloudflare
 ----------
 
 Make sure to look through the `cloudflare` folder and do any necessary setup to
-use CloudFlare.  Tsugi loves to work behind CloudFlare.   It saves bandwidth,
+use Cloudflare.  Tsugi loves to work behind Cloudflare.   It saves bandwidth,
 decreases load times for users around the world, and provides excellent protection
 agains Distributed Denial of Servce (DDOS) attacks is you put your servers in
-an AWS security group that only accepts connections from CloudFlare.
+an AWS security group that only accepts connections from Cloudflare.
 
 Creating the Necessary Services and Building the User Data
 ----------------------------------------------------------
@@ -159,7 +159,7 @@ Make sure to add a name tag
 **Step 6: Configure Security Group**
 
 Make sure to "Select an existing security group" and pick
-the right security group.  For example if you are only accepting connections from CloudFlare
+the right security group.  For example if you are only accepting connections from Cloudflare
 then pick your `cloudflare-80` security group or whatever you named it.   Sometimes it is
 easier to select a more open security group at this point and swithc to the `cloudflare-80`
 security group later.
@@ -171,16 +171,16 @@ them in action while provisioning is running, login and watch the log file.
     tail -f /var/log/cloud-init-output.log
 
 Once the server is all the way up, you can check to see if it is working.  Remember if you used the
-CloudFlare only security group, you can't just go to the IP address in the browser:
+Cloudflare only security group, you can't just go to the IP address in the browser:
 
 http://3.15.21.67/
 
 See the `cloudflare` instructions on how to temporarily sneak by the security group for initial testing.
 
-Single (non-autoscaled) Server in CloudFlare
+Single (non-autoscaled) Server in Cloudflare
 --------------------------------------------
 
-Once you have an IP address simply log into your CloudFlare configuration and route the www subdomain
+Once you have an IP address simply log into your Cloudflare configuration and route the www subdomain
 to that IP address
 
 Making an Autoscaling Group Using the AMI

@@ -13,19 +13,20 @@ with all of the pieces running on one server.
 
     $ docker images    (make sure they all build)
 
-    REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-    tsugi_dev           latest              116d2bf50c4e        2 minutes ago       674MB
-    tsugi_mysql         latest              90f8d82f7070        2 minutes ago       674MB
-    tsugi_base          latest              b7199f92080c        3 minutes ago       585MB
-    ubuntu              20.04               a35e70164dfb        13 days ago         222MB
+    REPOSITORY      TAG       IMAGE ID       CREATED          SIZE
+    tsugi_dev       latest    3a09a1ad5889   About a minute ago   1.52GB
+    tsugi_mariadb   latest    7303816909e4   About a minute ago   1.51GB
+    tsugi_prod      latest    f9d2dd49a0a2   2 minutes ago        1.21GB
+    tsugi_base      latest    c99202589076   2 minutes ago        1.21GB
+    tsugi_ubuntu    latest    91a4461f6747   4 minutes ago        199MB
 
-    $ docker run -p 8080:80 -e TSUGI_SERVICENAME=TSFUN -e MYSQL_ROOT_PASSWORD=secret --name ubuntu -dit tsugi_dev:latest
+    $ docker run -p 8080:80 -e TSUGI_SERVICENAME=TSFUN -e MYSQL_ROOT_PASSWORD=secret --name tsugi -dit tsugi_dev:latest
 
 Navigate to http://localhost:8080/
 
 To log in and look around, use:
 
-    $ docker exec -it ubuntu bash
+    $ docker exec -it tsugi bash
     root@73c370052747:/var/www/html/tsugi/admin# 
 
 To attach and watch the tail logs:
@@ -56,26 +57,29 @@ To build one image
 
 To test the ami scripts in a docker container so you can start over and over:
 
-    docker run -p 8080:80 -p 3306:3306 --name ubuntu -dit ubuntu:20.04
-    docker exec -it ubuntu bash
+    docker run -p 80:80 --name tsugi -dit ubuntu:20.04
+    docker exec -it tsugi bash
 
 Then in the docker:
 
-    apt update
-    apt-get install -y git
-    apt-get install -y vim
-    git config user.name "Charles R. Severance"
-    git config user.email "csev@umich.edu"
+    apt update ; apt-get install -y git vim
 
     cd /root
-    git clone https://github.com/tsugiproject/docker-php.git
+    git clone https://github.com/tsugiproject/tsugi-build.git
 
-    cd docker-php
-    bash ami/build.sh 
+    cd tsugi-build
+    bash ubuntu/build-dev.sh 
 
 This does all of the docker stuff.  Then to bring it up / configure it:
 
-    cp ami-env-dist.sh  ami-env.sh
-    bash /usr/local/bin/tsugi-dev-startup.sh return
+    # Alternatively use user_data.sh of your choice
+    cp ami/user_data_demo.sh  /root/ubuntu-env.sh
+    # cp ami/user_data_multi.sh  /root/ubuntu-env.sh
+    source /root/ubuntu-env.sh
+    bash /usr/local/bin/tsugi-dev-configure.sh return
 
+Debugging commands
+------------------
+
+    service --status-all
 

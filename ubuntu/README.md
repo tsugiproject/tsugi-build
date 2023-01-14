@@ -12,18 +12,17 @@ where backup and the ability to scale is not critical.
 * A production instance expects to have externally provided SQL server,
 Memcache, EFS, etc.
 
-Doing this on an EC2
---------------------
+Doing this on an AWS/EC2
+------------------------
 
-Create your instance from an Ubuntu `20_04` or later AMI and log in to your instance.
+See the instructions in [../ami/README.md](AMI folder).
 
 Testing the non-Docker build using a Docker container
 -----------------------------------------------------
 
-If you don't want to make an EC2 instance or buy your own Ubuntu server and just want to 
-see how this process works - or if you are making changes and want to easily test, 
-you can install docker and do all this
-locally.  
+If you don't want to make an EC2 instance or buy your own Ubuntu server and just want to
+see how this process works - or if you are making changes and want to easily test,
+you can install docker and do all this locally.
 
 To be clear we are not *making* docker images in this process - instead we
 are *using* docker to give us a fresh ubuntu install so we can test the non-docker
@@ -62,16 +61,16 @@ If you want a production instance that is dependent on outside resources:
     bash ubuntu/build-prod.sh
 
 Once the script completes successfully, all the pre-reqsuisite software
- is installed and you have a generic Tsugi server ready for configuration.  
+ is installed and you have a generic Tsugi server ready for configuration.
 
 Your Ubuntu disk is ready to backed up as
 a pre-configuration snapshot.  In a sense your manualy built running Ubuntu image
-is equivalent to either the `tsugi_dev` or `tsugi_prod` docker images if you 
+is equivalent to either the `tsugi_dev` or `tsugi_prod` docker images if you
 have done the Docker builds.
 
 * If you are doing this on your own server - it is a good time to take a backup
 
-* If you are testing this process in ubuntu running on docker - you can take a 
+* If you are testing this process in ubuntu running on docker - you can take a
 snapshot in case you want to do additional installations of your software or add
 your own stuff.  The snapshot command is:
 
@@ -101,16 +100,16 @@ Understanding Configuration
 It is important to note that configuring a Tsugi server is a one time operation.
 Once the configuration is complete Tsugi, Apache, MySQL (if installed) are fully
 configured and set to auto-start at each boot.  The configure process is only needed
-at first boot and before first use.  As a matter of fact the configure the 
+at first boot and before first use.  As a matter of fact the configure the
 configuration scripts create files in `/usr/local/bin` after they run successfully
 so they know not to run a second time if a server reboots or a configuration
 process is re-attempted.
 
-If you want to tweak your server configuration after this process runs - just go 
+If you want to tweak your server configuration after this process runs - just go
 in and type ubuntu commands to edit your `/etc/apache2` configuration files.  Of course,
 the more you do manually, the harder it is to rebuild an identical server later.
 
-The configure process creates folders, checks out code, creates databases, 
+The configure process creates folders, checks out code, creates databases,
 edits Tsugi's `config.php` and a whole host of tasks to make Tsugi ready to
 run.  If you access the server before or during the configuration process it
 will break in subtle ways because it is not set up.  But once the process
@@ -145,9 +144,10 @@ Demo setup requires that you edit your configuration but there are no external
 servers needed:
 
     cd /root
-    cp tsugi-build/ubuntu/ubuntu-demo-dev.sh ubuntu-env.sh
 
-    # Edit the ubuntu-env.sh and put your values in it
+    # If you have a Tsugi user_data.sh file, copy it into ubuntu-env, otherwise
+    # copy the default file and edit it with your values
+    cp tsugi-build/ubuntu/ubuntu-demo-dev.sh ubuntu-env.sh
 
     source ubuntu-env.sh
     bash /usr/local/bin/tsugi-dev-configure.sh return
@@ -162,16 +162,17 @@ This is not a complete set of instructions becuase there are so many different s
 It depends on external resources.  At minumum you need a MySQL server.  If you are
 autoscaling or using multple App Servers you need a Memcache server to store sessions.
 If your system will use a lot of blobs - they should be on Disk and if you are using
-multiple app servers they need to be on an NFS server.   
+multiple app servers they need to be on an NFS server.
 
 So you need to set up all the needed pre-requisites and add them to the configuration.
 
 The general outline is:
 
     cd /root
-    cp tsugi-build/ubuntu/ubuntu-prod-dev.sh ubuntu-env.sh
 
-    # Edit the ubuntu-env.sh and put your values in it
+    # If you have a Tsugi user_data.sh file, copy it into ubuntu-env, otherwise
+    # copy the default file and edit it with your values
+    cp tsugi-build/ubuntu/ubuntu-prod-dev.sh ubuntu-env.sh
 
     source ubuntu-env.sh
     bash /usr/local/bin/tsugi-prod-configure.sh return
@@ -184,7 +185,12 @@ much easier to do.
 Getting a LetsEncrypt Certificate
 ----------------------------------
 
-If you are running a demo or production server, you will want a SSL certificate.
+If you want to use Cloudflare it can provice your certificate, see the instructions in
+[../cloudflare/README.md](Cloudflare folder).
+
+If you are running a demo or production server, and not running behind Cloudflare
+or some other proxy that provides a certification, you will want to install
+a SSL certificate in your Apache server.
 
     root@ip-172-31-2-126:/root/tsugi-build# certbot --apache
     Saving debug log to /var/log/letsencrypt/letsencrypt.log
@@ -252,6 +258,6 @@ When Your Server Reboots
 
 After the configuration process is done once, everything you need is sitting on
 the disk of your server in folders like `/etc` and `/var`.  And everything is
-setup to restart on reboot - so if your server goes down or you take it down, 
+setup to restart on reboot - so if your server goes down or you take it down,
 just bring it back up and Tsugi should just re-appear and work.
 

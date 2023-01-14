@@ -1,5 +1,11 @@
 #! /bin/bash
 
-cd /var/www/html/tsugi
-git pull
+for f in /var/www/html /var/www/sites/*
+do
+    echo Tsugi update $f
+    cd $f/tsugi
+    if [ -d .git ] ; then
+       git pull
+    fi
+done
 
