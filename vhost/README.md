@@ -50,7 +50,6 @@ Once you have a server and log in as root or ubuntu and  `sudo bash`
     git clone https://github.com/tsugiproject/tsugi-build.git
 
     cd tsugi-build
-    # git checkout ubuntu-20-php-8-1
 
     bash ubuntu/build-prod.sh
 
@@ -149,7 +148,6 @@ In the docker:
     git clone https://github.com/tsugiproject/tsugi-build.git
 
     cd tsugi-build
-    # git checkout ubuntu-20-php-8-1
     git config user.name "Charles R. Severance"
     git config user.email "csev@umich.edu"
 

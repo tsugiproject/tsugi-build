@@ -68,9 +68,6 @@ Then in the docker:
     git clone https://github.com/tsugiproject/tsugi-build.git
 
     cd tsugi-build
-    git config user.name "Charles R. Severance"
-    git config user.email "csev@umich.edu"
-    # git checkout ubuntu-20-php-8-1
     bash ubuntu/build-dev.sh 
 
 This does all of the docker stuff.  Then to bring it up / configure it:
