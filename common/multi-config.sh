@@ -6,6 +6,7 @@ mkdir /efs
 mkdir /efs/sites
 mkdir /efs/sites/$TSUGI_DOMAIN
 chown www-data.www-data /efs/sites
+echo "Fixing ownership on /efs/sites/$TSUGI_DOMAIN ..."
 chown -R www-data.www-data /efs/sites/$TSUGI_DOMAIN
 
 mkdir /var/www/sites
@@ -24,7 +25,9 @@ s@apphome = false@apphome = '$TSUGI_PROTOCOL://$TSUGI_DOMAIN'@
 s@extra_settings = false@extra_settings = '/etc/apache2/sites-available/$TSUGI_DOMAIN.config.php'@
 EOF
 
+echo "Fixing ownership on /var/www/sites ..."
 chown www-data.www-data /var/www/sites
+echo "Fixing ownership on /var/www/sites/$TSUGI_DOMAIN ..."
 chown -R www-data.www-data /var/www/sites/$TSUGI_DOMAIN
 
 a2dissite $TSUGI_DOMAIN
