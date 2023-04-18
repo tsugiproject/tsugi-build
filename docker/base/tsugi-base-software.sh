@@ -28,6 +28,7 @@ apt-get install -y byobu curl git htop man unzip vim wget
 apt-get install -y apt-utils
 apt-get install -y mysql-client-8.0
 apt-get install -y nfs-common
+apt-get install -y sqlite3
 if [ ! -f "/usr/bin/crontab" ]; then
     apt-get install -y cron
 fi
@@ -46,8 +47,9 @@ apt-get install -y php${TSUGI_PHP_VERSION}-mbstring php${TSUGI_PHP_VERSION}-zip 
 apt-get install -y php${TSUGI_PHP_VERSION}-apcu
 apt-get install -y php${TSUGI_PHP_VERSION}-intl
 apt-get install -y php${TSUGI_PHP_VERSION}-memcached php${TSUGI_PHP_VERSION}-memcache
+apt-get install -y php${TSUGI_PHP_VERSION}-sqlite3
 a2enmod -q rewrite dir expires headers
-phpenmod mysqlnd pdo_mysql intl
+phpenmod mysqlnd pdo_mysql intl sqlite3 pdo_sqlite
 
 echo ======= Installing Node and Friends
 apt-get install -y nodejs
