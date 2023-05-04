@@ -15,7 +15,7 @@ export LC_ALL=C.UTF-8
 locale -a
 env
 
-TSUGI_PHP_VERSION=8.0
+TSUGI_PHP_VERSION=8.2
 
 echo ======= Update 1
 apt -y update
