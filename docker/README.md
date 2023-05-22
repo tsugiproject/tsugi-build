@@ -23,6 +23,7 @@ with all of the pieces running on one server.
     $ docker run -p 8080:80 -e TSUGI_SERVICENAME=TSFUN -e MYSQL_ROOT_PASSWORD=secret --name tsugi -dit tsugi_dev:latest
 
 Navigate to http://localhost:8080/
+Navigate to http://localhost:8080/phpMyAdmin (ltiuser / ltipassword unless you changed it)
 
 To log in and look around, use:
 

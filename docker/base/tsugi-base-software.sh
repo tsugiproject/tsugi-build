@@ -44,10 +44,17 @@ apt-get install -y apache2
 apt-get install -y php${TSUGI_PHP_VERSION}
 apt-get install -y libapache2-mod-php${TSUGI_PHP_VERSION} php${TSUGI_PHP_VERSION}-mysql php${TSUGI_PHP_VERSION}-curl
 apt-get install -y php${TSUGI_PHP_VERSION}-mbstring php${TSUGI_PHP_VERSION}-zip php${TSUGI_PHP_VERSION}-xml php${TSUGI_PHP_VERSION}-gd
-apt-get install -y php${TSUGI_PHP_VERSION}-apcu
-apt-get install -y php${TSUGI_PHP_VERSION}-intl
-apt-get install -y php${TSUGI_PHP_VERSION}-memcached php${TSUGI_PHP_VERSION}-memcache
-apt-get install -y php${TSUGI_PHP_VERSION}-sqlite3
+apt-get install -y php${TSUGI_PHP_VERSION}-apcu php${TSUGI_PHP_VERSION}-intl php${TSUGI_PHP_VERSION}-memcached php${TSUGI_PHP_VERSION}-memcache php${TSUGI_PHP_VERSION}-sqlite3
+
+# Seems like these are not automatic in ubuntu 20
+apt-get install -y php${TSUGI_PHP_VERSION}-common php${TSUGI_PHP_VERSION}-opcache
+
+# phpMyAdmin might need these
+apt-get install -y php${TSUGI_PHP_VERSION}-imagick php${TSUGI_PHP_VERSION}-xmlrpc php${TSUGI_PHP_VERSION}-cli php${TSUGI_PHP_VERSION}-soap php${TSUGI_PHP_VERSION}-imap
+
+# In case we want to develop or check something
+apt-get install -y composer
+
 a2enmod -q rewrite dir expires headers
 phpenmod mysqlnd pdo_mysql intl sqlite3 pdo_sqlite
 
