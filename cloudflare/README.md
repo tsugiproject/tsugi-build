@@ -107,7 +107,8 @@ Select "edit expression" and enter this (newlines added for readibility)
 
 Set the Action to Block.
 
-* <a href="images/waf-wp-block.png" target="_blank">Screen shot of WAF</a>
+* <a href="images/waf-wp-block.png" target="_blank">Screen shot of WAF configuration</a>
+* <a href="images/waf-wp-log.png" target="_blank">Screen shot of WAF log</a>
 
 You can see this in action at https://www.py4e.com/wp-admin
 
