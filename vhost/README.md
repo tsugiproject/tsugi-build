@@ -120,6 +120,17 @@ and apache has been reloaded.
 Once the DNS are pointing at the server, things should
 just work.
 
+Testing Your Vhost Before DNS is set up
+---------------------------------------
+
+You can use `curl` to request a page from the vhost using either `localhost` or
+the IP address of the server if the security group allows it:
+
+    curl --header 'Host: nd.tsugicloud.org' http://localhost/
+    curl --header 'Host: nd.tsugicloud.org' http://52.15.133.224/
+
+This connects directly to the host in the URL but requests the URI (/ in this case)
+from the specified virtual host.
 
 To test vhost setup in docker
 =============================
