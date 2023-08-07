@@ -10,13 +10,13 @@ gives you a list of the IP ranges at these URLs:
   https://www.cloudflare.com/ips-v6
 
 These change very slowly.  From August 2018 (when I started using this technique)
-to June 2020 (when I am writing this documentation) there were *no* changes to 
+to June 2020 (when I am writing this documentation) there were *no* changes to
 the Cloudflare IP ranges.  I include commands below to check if they have changed
 any time you like.  If you notice that they have changed - make sure to let
 the Tsugi devloper's list know because a lot of Tsugi servers might be partially
 off the air.
 
-To make use of this feature you make an AWS security group (I call my security 
+To make use of this feature you make an AWS security group (I call my security
 group `cloudflare-80`) that allows incoming HTTP
 from all these ranges and SSH from any address range and nothing else. Here are some
 sample AWS console images:
@@ -54,7 +54,7 @@ Clearing Cache
 
 If you have heavily cached URLs and want to change that content,
 you can log in and clear Cloudflare's entire cache of your site
-under 'Caching.  Clearing cache in Cloudflare is not too costly, 
+under 'Caching.  Clearing cache in Cloudflare is not too costly,
 it just means Cloudflare will re-grab all those files once and
 start to cache them again.
 
@@ -65,7 +65,7 @@ browser, you might have to add a GET parameter to a URL like:
 
     http://static.tsugi.org/js/tsugiscripts_head.js?x=42
 
-Then you should force your browser to re-retrieve the file.   
+Then you should force your browser to re-retrieve the file.
 
 Cloudflare does not solve the "force all the browsers to reload
 the new version" because it can't.   For that you still need to
@@ -74,7 +74,7 @@ resort to tricks like GET parameters in static files in your markup.
 Checking to see if the Cloudflare IP Ranges have Changed
 --------------------------------------------------------
 
-To check if the cloudflare IP address ranged have changed, run the 
+To check if the cloudflare IP address ranged have changed, run the
 following commands (must be in bash):
 
   wget -O /tmp/2020-06-04-ips-v4.txt https://www.cloudflare.com/ips-v4
@@ -85,4 +85,36 @@ following commands (must be in bash):
 
 Don't store the new files unless there have been changes - which
 are pretty rare.
+
+Blocking Requests to WordPress URLs
+-----------------------------------
+
+There are a lot of fuzzing attacks that blast PHP sites including extremely large POST
+requests that run your server out of memory at various WordPress endpoints.   Tsugi handles
+these smoothly but you see log errors when they happen.  If you are using CloudFlare there
+is a simple solution that blocks these request inside CloudFlare so they never make it
+to your server.
+
+Go into Security -> WAF and add a rule
+
+Title: Block WP Attacks (or whatever)
+
+Select "edit expression" and enter this (newlines added for readibility)
+
+    (http.request.uri eq "/wp-admin") or (http.request.uri contains "/wp-login.php")
+    or (http.request.uri contains "/wp-config.php") or
+    (http.request.uri contains "/xmlrpc.php") or (http.request.uri eq "/wp-admin/")
+
+Set the Action to Block.
+
+* <a href="images/waf-wp-block.png" target="_blank">Screen shot of WAF configuration</a>
+* <a href="images/waf-wp-log.png" target="_blank">Screen shot of WAF log</a>
+
+You can see this in action at https://www.py4e.com/wp-admin
+
+If you read CloudFlare documentation they talk about WordPress rules that are enabled
+by default - but those are for actual WordPress sites - so they don't 100% block these
+requests.  Since Tsugi is not WordPress - we can just blow them out of the water
+in your CloudFlare firewall.
+
 

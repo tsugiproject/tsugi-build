@@ -147,7 +147,7 @@ servers needed:
 
     # If you have a Tsugi user_data.sh file, copy it into ubuntu-env, otherwise
     # copy the default file and edit it with your values
-    cp tsugi-build/ubuntu/ubuntu-demo-dev.sh ubuntu-env.sh
+    cp tsugi-build/ubuntu/ubuntu-env-demo.sh ubuntu-env.sh
 
     source ubuntu-env.sh
     bash /usr/local/bin/tsugi-dev-configure.sh return

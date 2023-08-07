@@ -8,7 +8,7 @@ change is where you store blobs and how you set up your database connection.
 You can test this process nicely in docker (instructions below) but without
 a few DNS tricks - it is easiest to test one virtual host.
 
-For a Production environment in AWS using Ubuntu 20.
+For a Production environment in AWS using Ubuntu 22.04.0 LTS
 
 Pre-Work for Production (i.e. AWS)
 ----------------------------------
@@ -36,14 +36,14 @@ This is a sample setup for one of my AWS servers:
 
     t2.small
 
-    Canonical, Ubuntu, 20.04 LTS, amd64 focal image build on 2022-12-12 ami-0cbea92f2377277a4
+    Canonical, Ubuntu, 22.04 LTS, amd64 jammy image build on 2023-03-25 ami-0a695f0d95cefc163
 
     Start in the "default" security group - move to "cloudflare-80" security group
     after initial testing is complete
 
 Once you have a server and log in as root or ubuntu and  `sudo bash`
 
-    # Not needed for 20.04.05 - check if you already have git and vim
+    # Not needed for 22.04 LTI - check if you already have git and vim
     apt update ; apt-get install -y git vim
 
     cd /root
@@ -120,6 +120,17 @@ and apache has been reloaded.
 Once the DNS are pointing at the server, things should
 just work.
 
+Testing Your Vhost Before DNS is set up
+---------------------------------------
+
+You can use `curl` to request a page from the vhost using either `localhost` or
+the IP address of the server if the security group allows it:
+
+    curl --header 'Host: nd.tsugicloud.org' http://localhost/
+    curl --header 'Host: nd.tsugicloud.org' http://52.15.133.224/
+
+This connects directly to the host in the URL but requests the URI (/ in this case)
+from the specified virtual host.
 
 To test vhost setup in docker
 =============================
