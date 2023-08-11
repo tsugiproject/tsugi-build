@@ -87,7 +87,7 @@ and have the load balancer terminate the https support
 and handle things like DDOS.
 
 The install process should have installed the necessary software
-to get a certificate from LetsEngrypt so no further `apt` commands
+to get a certificate from LetsEncrypt so no further `apt` commands
 should be necessary.
 
 If you don't have a certificate installed and keep the vhosts
