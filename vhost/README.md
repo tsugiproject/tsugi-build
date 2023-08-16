@@ -90,6 +90,9 @@ The install process should have installed the necessary software
 to get a certificate from LetsEncrypt so no further `apt` commands
 should be necessary.
 
+To get a certificate for a working http server just type `certbot`
+and follow the instructions.
+
 If you don't have a certificate installed and keep the vhosts
 http only, you can edit the scripts like `/root/sites/ihts.pr4e.com.sh`
 and re-run them to update them.  Or you can tweak the configurations
