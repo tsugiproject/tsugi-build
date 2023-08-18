@@ -43,7 +43,7 @@ This is a sample setup for one of my AWS servers:
 
 Once you have a server and log in as root or ubuntu and  `sudo bash`
 
-    # Not needed for 22.04 LTI - check if you already have git and vim
+    # Not needed for 22.04 LTS - check if you already have git and vim
     apt update ; apt-get install -y git vim
 
     cd /root
