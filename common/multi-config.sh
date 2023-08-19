@@ -64,7 +64,7 @@ cat << EOF > /etc/apache2/sites-available/$TSUGI_DOMAIN.conf
 	# after it has been globally disabled with "a2disconf".
 	#Include conf-available/serve-cgi-bin.conf
 
-   <Directory  /var/www/sites/test.tsugicloud.org>
+   <Directory  /var/www/sites/$TSUGI_DOMAIN>
       Options Indexes FollowSymLinks
       AllowOverride All
       Order allow,deny
