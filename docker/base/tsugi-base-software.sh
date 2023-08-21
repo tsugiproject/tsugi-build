@@ -24,7 +24,7 @@ echo ======= Upgrade
 apt -y upgrade
 apt-get install -y build-essential
 apt-get install -y software-properties-common
-apt-get install -y byobu curl git htop man unzip vim wget
+apt-get install -y byobu curl git htop man zip unzip vim wget
 apt-get install -y apt-utils
 apt-get install -y mysql-client-8.0
 apt-get install -y nfs-common
