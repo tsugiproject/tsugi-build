@@ -86,6 +86,15 @@ cp /usr/bin/git /usr/local/bin/gitx
 chown www-data:www-data /usr/local/bin/gitx
 chmod a+s /usr/local/bin/gitx
 
+# Make copy of tsugi-build that belongs to www-data
+if [ ! -d /home/www-data ]; then
+  mkdir /home/www-data
+fi
+
+cd /home/www-data
+git clone https://github.com/tsugiproject/tsugi-build.git
+chown -R www-data.www-data /home/www-data
+
 # Construct the web
 cd /var/www/html/
 rm index.html   # Apache2 Debian default page
