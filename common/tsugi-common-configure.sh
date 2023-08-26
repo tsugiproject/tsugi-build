@@ -74,13 +74,6 @@ if [ ! -d /efs/sites ]; then
   mkdir /efs/sites
 fi
 
-
-# This takes way too long...
-echo "Patching efs permissions"
-chown www-data:www-data /efs
-chown www-data:www-data /efs/*
-chown www-data:www-data /efs/*/*
-
 # Make git work from the browser
 cp /usr/bin/git /usr/local/bin/gitx
 chown www-data:www-data /usr/local/bin/gitx
@@ -90,9 +83,10 @@ chmod a+s /usr/local/bin/gitx
 if [ ! -d /home/www-data ]; then
   mkdir /home/www-data
 fi
-
 cd /home/www-data
-git clone https://github.com/tsugiproject/tsugi-build.git
+if [ ! -d tsugi-build ]; then
+  git clone https://github.com/tsugiproject/tsugi-build.git
+fi
 chown -R www-data.www-data /home/www-data
 
 # Construct the web
@@ -211,4 +205,10 @@ update-rc.d apache2 defaults
 
 echo Re-starting Apache
 /usr/sbin/apachectl restart
+
+# This takes way too long so we do it at the end..
+echo "Patching efs permissions"
+chown www-data:www-data /efs
+chown www-data:www-data /efs/*
+chown www-data:www-data /efs/*/*
 
