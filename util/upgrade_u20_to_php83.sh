@@ -1,16 +1,20 @@
+#! /bin/bash
 
-# Live upgrade to an 8.2 install
+# Live upgrade to an 8.2 install for Ubuntu 20
+
+xrel=`grep -oP 'VERSION_ID="\K[\d]+' /etc/os-release`
+
+if [ "$xrel" = "20" ]; then
+    echo "Ubuntu version: " $xrel
+else
+    echo "This script will only run on Ubuntu 20. Your version:" $xrel
+    exit
+fi
 
 if [ -f "/usr/bin/php8.2" ]; then
     echo "It looks like you already have PHP 8.2 installed"
     exit
 fi
-
-# http://jpetazzo.github.io/2013/10/06/policy-rc-d-do-not-start-services-automatically/
-cat > /usr/sbin/policy-rc.d << EOF
-#!/bin/sh
-exit 0
-EOF
 
 sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list
 export DEBIAN_FRONTEND=noninteractive
@@ -18,13 +22,12 @@ export LC_ALL=C.UTF-8
 locale -a
 env
 
+
 TSUGI_PHP_VERSION=8.2
 
 echo ======= Update 1
 apt -y update
-
-echo ======= Upgrade
-apt -y upgrade
+# apt -y upgrade
 apt-get install -y build-essential
 apt-get install -y software-properties-common
 apt-get install -y byobu curl git htop man zip unzip vim wget
@@ -37,7 +40,8 @@ if [ ! -f "/usr/bin/crontab" ]; then
 fi
 apt-get install -y ca-certificates
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4F4EA0AAE5267A6C
-echo ======= Update 2
+
+echo ======= Update 2 after adding apt-key
 apt update
 add-apt-repository -y ppa:ondrej/php
 add-apt-repository -y ppa:ondrej/apache2
