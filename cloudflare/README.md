@@ -86,10 +86,15 @@ following commands (must be in bash):
 Don't store the new files unless there have been changes - which
 are pretty rare.
 
-As a note, you can add CIRD blocks to AWS Security groups all on one
+As a note, you can add CIDR blocks to AWS Security groups all on one
 line as comma separated values like this:
 
 2400:cb00::/32,2606:4700::/32,2803:f800::/32,2405:b500::/32,2405:8100::/32
+
+Use this command:
+
+tr '\n' ',' < 2023-11-12-ips-v4.txt | sed 's/,$/\n/'
+
 
 Blocking Requests to WordPress URLs
 -----------------------------------
