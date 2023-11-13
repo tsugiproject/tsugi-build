@@ -77,14 +77,19 @@ Checking to see if the Cloudflare IP Ranges have Changed
 To check if the cloudflare IP address ranged have changed, run the
 following commands (must be in bash):
 
-  wget -O /tmp/2020-06-04-ips-v4.txt https://www.cloudflare.com/ips-v4
-  wget -O /tmp/2020-06-04-ips-v6.txt https://www.cloudflare.com/ips-v6
+  wget -O /tmp/2023-11-12-ips-v4.txt https://www.cloudflare.com/ips-v4
+  wget -O /tmp/2023-11-12-ips-v6.txt https://www.cloudflare.com/ips-v6
 
-  diff <(sort 2018-08-15-ips-v4.txt) <(sort /tmp/2020-06-04-ips-v4.txt)
-  diff <(sort 2018-08-15-ips-v6.txt) <(sort /tmp/2020-06-04-ips-v6.txt)
+  diff <(sort 2018-08-15-ips-v4.txt) <(sort /tmp/2023-11-12-ips-v4.txt)
+  diff <(sort 2018-08-15-ips-v6.txt) <(sort /tmp/2023-11-12-ips-v6.txt)
 
 Don't store the new files unless there have been changes - which
 are pretty rare.
+
+As a note, you can add CIRD blocks to AWS Security groups all on one
+line as comma separated values like this:
+
+2400:cb00::/32,2606:4700::/32,2803:f800::/32,2405:b500::/32,2405:8100::/32
 
 Blocking Requests to WordPress URLs
 -----------------------------------
