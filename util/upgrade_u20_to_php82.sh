@@ -1,18 +1,18 @@
 #! /bin/bash
 
-# Live upgrade to an 8.3 install for Ubuntu 20 or 22
+# Live upgrade to an 8.2 install for Ubuntu 20
 
 xrel=`grep -oP 'VERSION_ID="\K[\d]+' /etc/os-release`
 
-if [ "$xrel" = "20" ] || [ "$xrel" = "22" ]; then
+if [ "$xrel" = "20" ]; then
     echo "Ubuntu version: " $xrel
 else
-    echo "This script will only run on Ubuntu 20 or 22. Your version:" $xrel
+    echo "This script will only run on Ubuntu 20. Your version:" $xrel
     exit
 fi
 
-if [ -f "/usr/bin/php8.3" ]; then
-    echo "It looks like you already have PHP 8.3 installed"
+if [ -f "/usr/bin/php8.2" ]; then
+    echo "It looks like you already have PHP 8.2 installed"
     exit
 fi
 
@@ -23,7 +23,7 @@ locale -a
 env
 
 
-TSUGI_PHP_VERSION=8.3
+TSUGI_PHP_VERSION=8.2
 
 echo ======= Update 1
 apt -y update
@@ -89,11 +89,11 @@ lsb_release -a
 phpenmod mysqlnd pdo_mysql intl sqlite3 pdo_sqlite
 a2enmod -q rewrite dir expires headers
 
-if [ -f "/usr/bin/php8.3" ]; then
+if [ -f "/usr/bin/php8.2" ]; then
 cat << EOF
-It looks like you have installed PHP 8.3.
+It looks like you have installed PHP 8.2.
 
-To make sure you are running PHP 8.3 at the command line use
+To make sure you are running PHP 8.2 at the command line use
 
 update-alternatives --config php
 
@@ -104,10 +104,10 @@ ls /etc/apache2/mods-enabled/php*.load
 Disable the apache version you currently have enabled
 
 a2dismod php7.3
-a2enmod php8.3
+a2enmod php8.2
 systemctl restart apache2
 
-Then check with info.php to make sure you have PHP 8.3
+Then check with info.php to make sure you have PHP 8.2
 
 EOF
 else
