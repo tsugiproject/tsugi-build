@@ -8,7 +8,7 @@ change is where you store blobs and how you set up your database connection.
 You can test this process nicely in docker (instructions below) but without
 a few DNS tricks - it is easiest to test one virtual host.
 
-For a Production environment in AWS using Ubuntu 22.04.0 LTS
+For a Production environment in AWS using Ubuntu 24.04.0 LTS
 
 Pre-Work for Production (i.e. AWS)
 ----------------------------------
@@ -131,6 +131,11 @@ the IP address of the server if the security group allows it:
 
 This connects directly to the host in the URL but requests the URI (/ in this case)
 from the specified virtual host.
+
+Automatic Updating
+------------------
+
+The cron jobs can be run across the hosts with the `common/crom_multi.sh`
 
 To test vhost setup in docker
 =============================
