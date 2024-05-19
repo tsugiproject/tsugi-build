@@ -36,15 +36,12 @@ This is a sample setup for one of my AWS servers:
 
     t2.small
 
-    Canonical, Ubuntu, 22.04 LTS, amd64 jammy image build on 2023-03-25 ami-0a695f0d95cefc163
+    Canonical, Ubuntu, 24.04 LTS, amd64 noble image build on 2024-04-23
 
     Start in the "default" security group - move to "cloudflare-80" security group
     after initial testing is complete
 
 Once you have a server and log in as root or ubuntu and  `sudo bash`
-
-    # Not needed for 22.04 LTS - check if you already have git and vim
-    apt update ; apt-get install -y git vim
 
     cd /root
     git clone https://github.com/tsugiproject/tsugi-build.git
