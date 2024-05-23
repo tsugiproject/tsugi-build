@@ -6,7 +6,7 @@ on an ubuntu 20.04 instance.  You have to decide what kind of instance you
 want:
 
 * A demo / developer instance installs MySQL locally in the instance.  This
-shoul dnot be used for production - but it can be used for simple demo servers
+should not be used for production - but it can be used for simple demo servers
 where backup and the ability to scale is not critical.
 
 * A production instance expects to have externally provided SQL server,
