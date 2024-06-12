@@ -13,5 +13,9 @@ export TSUGI_APPHOME=http://localhost
 export MAIN_REPO=https://github.com/tsugiproject/tsugi-parent
 
 # Dev / demo instances have a built-in MySQL server installed and configured
-export MYSQL_ROOT_PASSWORD=secret 
+export MYSQL_ROOT_PASSWORD=root 
+
+echo =============
+echo This development build should not be put into a server that exposed port 3306 to the Internet
+echo =============
 
