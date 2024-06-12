@@ -3,10 +3,10 @@
 
 # This controls how Tsugi is set up on this server.
 
-export TSUGI_SERVICENAME=MyStore
+export TSUGI_SERVICENAME=TestLTI
 
 # The URL that the outside world will use to access this server
-export TSUGI_APPHOME=http://localhost:8080 
+export TSUGI_APPHOME=http://localhost
 
 # A github repository for the "outer" web site 
 # If omitted a single html page will be put in as a placeholder.
