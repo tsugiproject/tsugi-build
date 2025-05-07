@@ -50,6 +50,8 @@ Then check out this build repository:
     cd /root
     git clone https://github.com/tsugiproject/tsugi-build.git
 
+For testing, you might want to check out a particular branch like `ubuntu-24-php-8-4`.
+
 If you want a developer/demo instance (fully self-contained):
 
     cd /root/tsugi-build
@@ -136,6 +138,10 @@ Developer setup is prettty simple because there are no external servers:
     cp tsugi-build/ubuntu/ubuntu-env-dev.sh ubuntu-env.sh
     source ubuntu-env.sh
     bash /usr/local/bin/tsugi-dev-configure.sh return
+
+Test by navigating to
+
+   http://localhost:8080/tsugi/admin/
 
 Configure a Demo Server
 ------------------------
