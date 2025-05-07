@@ -8,11 +8,8 @@
 # docker container prune
 # docker image rm tsugi_dev:latest tsugi_mysql:latest tsugi_base:latest tsugi_ubuntu:latest
 
-# Note that as of June 2022, apt-get install mariadb-server fails on a 22.04 fresh container
-# So we will delay using 22.04 for a while
-
 # Pull base image.
-FROM ubuntu:20.04
+FROM ubuntu:24.04
 
 COPY tsugi-ubuntu-configure.sh /usr/local/bin/
 COPY tsugi-ubuntu-software.sh /usr/local/bin/

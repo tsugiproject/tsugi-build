@@ -153,7 +153,7 @@ fine for testing.
 
 On your host, start Docker and then:
 
-    docker run -p 80:80 --name tsugi -dit ubuntu:20.04
+    docker run -p 80:80 --name tsugi -dit ubuntu:24.04
     docker exec -it tsugi bash
 
 In the docker:
