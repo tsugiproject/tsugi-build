@@ -2,7 +2,7 @@ Bringing Tsugi Up on Ubuntu
 ===========================
 
 This documents how to manually build a Tsugi developer or production server
-on an ubuntu 20.04 instance.  You have to decide what kind of instance you
+on an ubuntu instance.  You have to decide what kind of instance you
 want:
 
 * A demo / developer instance installs MySQL locally in the instance.  This
@@ -28,7 +28,7 @@ To be clear we are not *making* docker images in this process - instead we
 are *using* docker to give us a fresh ubuntu install so we can test the non-docker
 build processes - make a container:
 
-    docker run -p 8080:80 -p 3308:3306 --name ubuntu -dit ubuntu:20.04
+    docker run -p 8080:80 -p 3308:3306 --name ubuntu -dit ubuntu:24.04
 
 You can pick ports other than 8080 and 3308 to access your web server and MySQL
 server running inside of docker.
@@ -49,6 +49,8 @@ Then check out this build repository:
 
     cd /root
     git clone https://github.com/tsugiproject/tsugi-build.git
+
+For testing, you might want to check out a particular branch like `ubuntu-24-php-8-4`.
 
 If you want a developer/demo instance (fully self-contained):
 
@@ -136,6 +138,10 @@ Developer setup is prettty simple because there are no external servers:
     cp tsugi-build/ubuntu/ubuntu-env-dev.sh ubuntu-env.sh
     source ubuntu-env.sh
     bash /usr/local/bin/tsugi-dev-configure.sh return
+
+Test by navigating to
+
+   http://localhost:8080/tsugi/admin/
 
 Configure a Demo Server
 ------------------------

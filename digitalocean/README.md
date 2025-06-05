@@ -13,7 +13,7 @@ is much easier than Amazon for that use case.
 Making a Tsugi Droplet
 ----------------------
 
-Log in to Digital Ocean and Create an UBUNTU 20.04  Droplet.
+Log in to Digital Ocean and Create an UBUNTU 24.04  Droplet.
 
 A nice thing about DO is that you can add memory, CPU, or 
 disk to your instance pretty easily

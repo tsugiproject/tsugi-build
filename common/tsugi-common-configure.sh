@@ -87,7 +87,7 @@ cd /home/www-data
 if [ ! -d tsugi-build ]; then
   git clone https://github.com/tsugiproject/tsugi-build.git
 fi
-chown -R www-data.www-data /home/www-data
+chown -R www-data:www-data /home/www-data
 
 # Construct the web
 cd /var/www/html/

@@ -9,11 +9,13 @@ building like "dev-sakai-20-81" or testing something.
 
 Step 2: Choose an Amazon Machine Image (AMI)
 
-    Select "Community AMIs"
+    Select "Ubuntu"
+    Ubuntu Server 24.04 LTS (HVM),EBS General Purpose (SSD) Volume Type.
     Search for "ubuntu 20.04 amd64-server" under "Community AMIs" and find something like:
     ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-20220610 - ami-0960ab670c8bb45f3
+    Canonical, Ubuntu, 24.04, amd64 noble image ami-04f167a56786e4b09 2025-03-05
 
-Step 3: Choose an Instance Type - t2.micro
+Step 3: Choose an Instance Type - t2.small
 
 Step 4: Choose your access key
 

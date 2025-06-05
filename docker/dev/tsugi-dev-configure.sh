@@ -41,7 +41,7 @@ unzip phpMyAdmin-5.1.1-all-languages.zip
 mv phpMyAdmin-5.1.1-all-languages /var/www/html/phpMyAdmin
 rm phpMyAdmin-5.1.1-all-languages.zip
 
-chown -R www-data.www-data /var/www/html/
+chown -R www-data:www-data /var/www/html/
 
 # if COMPLETE
 fi
