@@ -48,6 +48,7 @@ apt-get install -y php${TSUGI_PHP_VERSION}-apcu php${TSUGI_PHP_VERSION}-intl php
 
 # Seems like these are not automatic in ubuntu 20
 apt-get install -y php${TSUGI_PHP_VERSION}-common php${TSUGI_PHP_VERSION}-opcache
+apt-get install -y php${TSUGI_PHP_VERSION}-gmp
 
 # phpMyAdmin might need these
 apt-get install -y php${TSUGI_PHP_VERSION}-imagick php${TSUGI_PHP_VERSION}-xmlrpc php${TSUGI_PHP_VERSION}-cli php${TSUGI_PHP_VERSION}-soap php${TSUGI_PHP_VERSION}-imap
