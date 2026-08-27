@@ -96,35 +96,59 @@ Use this command:
 tr '\n' ',' < 2023-11-12-ips-v4.txt | sed 's/,$/\n/'
 
 
-Blocking Requests to WordPress URLs
------------------------------------
+Blocking Bot Scanners (WordPress, .git, cgi-bin)
+------------------------------------------------
 
-There are a lot of fuzzing attacks that blast PHP sites including extremely large POST
-requests that run your server out of memory at various WordPress endpoints.   Tsugi handles
-these smoothly but you see log errors when they happen.  If you are using CloudFlare there
-is a simple solution that blocks these request inside CloudFlare so they never make it
-to your server.
+There are a lot of fuzzing attacks that blast PHP sites looking for
+WordPress, git metadata, `.env` files, and old CGI scripts.  Extremely
+large POST bodies at WordPress endpoints can even run a server out of
+memory.  Tsugi handles these smoothly but you see log errors when they
+happen.  If you are using CloudFlare, block them in the WAF so they
+never reach Apache.
 
-Go into Security -> WAF and add a rule
+Go into Security -> Security rules (older dashboard: Security -> WAF ->
+Custom rules) and add one Custom rule.  Free accounts only get five
+custom WAF rules per zone, so put every probe path in a single
+expression with `or`.  Same Action (Block) either way.
 
-Title: Block WP Attacks (or whatever)
+Title: Bot Scan Blockers
 
-Select "edit expression" and enter this (newlines added for readibility)
+Select "Edit expression" and enter this (newlines added for readability).
 
-    (http.request.uri eq "/wp-admin") or (http.request.uri contains "/wp-login.php")
-    or (http.request.uri contains "/wp-config.php") or
-    (http.request.uri contains "/xmlrpc.php") or (http.request.uri eq "/wp-admin/")
+    (starts_with(http.request.uri.path, "/wp-")) or
+    (starts_with(http.request.uri.path, "/wp/")) or
+    (http.request.uri.path in {"/wp" "/wordpress" "/wordpress/"}) or
+    (http.request.uri.path contains "/wp-admin") or
+    (http.request.uri.path contains "/wp-login") or
+    (http.request.uri.path contains "/wp-content") or
+    (http.request.uri.path contains "/wp-includes") or
+    (http.request.uri.path contains "/wp-json") or
+    (http.request.uri.path contains "/wp-config") or
+    (http.request.uri.path contains "xmlrpc.php") or
+    (http.request.uri.path contains "/wordpress/") or
+    (http.request.uri.path contains "/.git") or
+    (http.request.uri.path contains "/.svn") or
+    (http.request.uri.path contains "/.htpasswd") or
+    (http.request.uri.path contains "/.env") or
+    (http.request.uri.path contains "/cgi-bin")
 
 Set the Action to Block.
+
+The WordPress half is broader than `/wp-admin` and `xmlrpc.php` alone —
+scanners also hit `/wp/`, `/wp-json/`, `/wp-content/`, and `/wordpress/`.
+CloudFlare's bundled WordPress rules are for *protecting* WordPress, so
+they do not fully drop these probes.
+
+`contains "/.git"` (no trailing slash) matches `/.git/config` and also
+`/.git`, `/.gitconfig`, `/.git-credentials`, `/.github`, and
+`/.gitlab-ci.yml`.  `contains "/cgi-bin"` matches `/cgi-bin/` and
+path-traversal tricks like `/cgi-bin/.%2e/.%2e/bin/sh`.  None of those
+paths should ever be served from these hosts.
 
 * <a href="images/waf-wp-block.png" target="_blank">Screen shot of WAF configuration</a>
 * <a href="images/waf-wp-log.png" target="_blank">Screen shot of WAF log</a>
 
-You can see this in action at https://www.py4e.com/wp-admin
+You can see the WordPress part in action at https://www.py4e.com/wp-admin
 
-If you read CloudFlare documentation they talk about WordPress rules that are enabled
-by default - but those are for actual WordPress sites - so they don't 100% block these
-requests.  Since Tsugi is not WordPress - we can just blow them out of the water
-in your CloudFlare firewall.
 
 

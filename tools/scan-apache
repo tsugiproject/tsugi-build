@@ -1,0 +1,3 @@
+#!/bin/sh
+# Apache error.log / access.log scanner
+exec python3 "$(dirname "$0")/apache_scan/scan.py" "$@"
