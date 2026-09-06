@@ -56,6 +56,9 @@ apt-get install -y php${TSUGI_PHP_VERSION}-imagick php${TSUGI_PHP_VERSION}-xmlrp
 # In case we want to develop or check something
 apt-get install -y composer
 
+# Don't server the javascript common bit
+a2disconf javascript-common
+
 a2enmod -q rewrite dir expires headers
 phpenmod mysqlnd pdo_mysql intl sqlite3 pdo_sqlite
 
