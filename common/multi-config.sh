@@ -103,3 +103,10 @@ apache2ctl -S
 
 echo " --------- FINISHING multi_config.sh $TSUGI_DOMAIN ---------------"
 
+echo
+echo ++ To test this Apache vhost configuration run the following command
+echo
+echo curl --header \'Host: $TSUGI_DOMAIN\' http://$(curl -s ifconfig.me)/
+echo
+
+
