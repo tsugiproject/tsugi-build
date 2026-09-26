@@ -1,10 +1,38 @@
-# /bin/bash
+#! /bin/bash
 
-sudo su -s "/home/www-data/tsugi-build/common/html_update.sh" www-data
+# Finish all four steps for one site before starting the next. A new Tsugi
+# checkout has to be followed immediately by its database upgrade; leaving
+# that gap until every other site is updated can crash the site.
 
-sudo su -s "/home/www-data/tsugi-build/common/tsugi_update.sh" www-data
+sudo su -s /bin/bash www-data << 'EOF'
+for f in /var/www/html /var/www/sites/*
+do
+    if [ ! -d "$f" ] ; then
+        continue
+    fi
 
-sudo su -s "/home/www-data/tsugi-build/common/tool_update.sh" www-data
+    echo Tsugi update $f
+    if [ -d "$f/tsugi/.git" ] ; then
+        cd "$f/tsugi"
+        git pull
+    fi
 
-sudo su -s "/home/www-data/tsugi-build/common/db_upgrade.sh" www-data
+    echo Database upgrade $f
+    if [ -d "$f/tsugi/.git" ] ; then
+        cd "$f/tsugi/admin"
+        php upgrade.php
+    fi
 
+    echo Main update $f
+    if [ -d "$f/.git" ] ; then
+        cd "$f"
+        git pull
+    fi
+
+    echo Tool update $f
+    if [ -d "$f/tsugi/admin/install" ] ; then
+        cd "$f/tsugi/admin/install"
+        php update.php
+    fi
+done
+EOF
